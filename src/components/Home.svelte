@@ -4,13 +4,11 @@
   import { blogs } from "../data";
 </script>
 
-<h1 class="text-3xl dark:text-white">Svelte TS Starter</h1>
-<p class="text-xl dark:text-white">Svelte + Vite + Typescript + TailwindCSS + Flowbite-Svelte + Svelte-Spa-Router</p>
-{#each blogs as blog, i}
+<!-- <p class="text-xl dark:text-white">Svelte + Vite + Typescript + TailwindCSS + Flowbite-Svelte + Svelte-Spa-Router</p> -->
+{#each blogs as blog}
   <Card
     title={blog.title}
     description={blog.content}
-    image={blog.image}
     publishDate={format(blog.publishDate)}
   />
 {/each}

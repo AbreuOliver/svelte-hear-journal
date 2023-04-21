@@ -4,10 +4,10 @@
   export let title, description, image, publishDate;
 </script>
 
-<div class="flex py-8 px-4">
-  <img src={image} alt="img" class="rounded-md max-w-xs mr-4" />
+<div class="flex content-center items-center py-8 px-4 max-w-[700px]">
+  <!-- <img src={image} alt="img" class="rounded-md max-w-xs mr-4" /> -->
 
-  <div>
+  <div class="flex" style="border: 5px solid pink">
     <h2 class="mb-2 text-2xl font-medium dark:text-white">
       <a href={`/article/${urlSlug(title)}`} use:link>{title}</a>
     </h2>
