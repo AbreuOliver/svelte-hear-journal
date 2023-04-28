@@ -10,6 +10,8 @@
     NavUl,
     NavHamburger,
   } from "flowbite-svelte";
+  import ProgressBar from "./components/ProgressBar.svelte";
+  import DailyReading from "./components/DailyReading.svelte";
 
   let data;
   async function fetchData() {
@@ -17,6 +19,14 @@
     data = await response.json();
   }
   onMount(fetchData);
+
+  let steps = ["Info", "Address", "Payment", "Confirmation"],
+    currentActive = 1,
+    progressBar;
+
+  const handleProgress = (stepIncrement) => {
+    progressBar.handleProgress(stepIncrement);
+  };
 </script>
 
 <!-- BELOW:  style="border: 5px solid red;" -->
@@ -25,7 +35,7 @@
   <div class="relative flex flex-col items-center w-full">
     <!-- BELOW: style="display: flex; justify-content: center; align-items: center;" -->
     <div
-      class="bg-lime-400 w-full flex items-center justify-center border-b z-20 sticky top-0 left-0"
+      class="bg-inherit w-full flex items-center justify-center border-b z-20 sticky top-0 left-0"
     >
       <Navbar
         navClass="flex items-center w-full max-w-[700px] px-2 sm:px-4 py-2.5"
@@ -48,36 +58,15 @@
           <DarkMode
             class="item-center justify-center grow-1 border-1 border-inherit"
           />
-          <!-- <NavHamburger
-            class="flex justify-center items-center"
-            on:click={toggle}
-          /> -->
-          <!-- <NavUl
-            class="md:flex content-center items-center max-w-[100px]"
-            {hidden}
-          >
-            <NavLi href="/" active={true}>Home</NavLi>
-            <NavLi href="/about">About</NavLi>
-            <NavLi href="/services">Services</NavLi>
-            <NavLi href="/pricing">Pricing</NavLi>
-            <NavLi href="/contact">Contact</NavLi>
-          </NavUl> -->
         </div>
       </Navbar>
     </div>
     <div
-      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[100vh]"
+      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[100vh] max-w-[700px]"
     >
-      <Router {routes} />
-
-      {#if data}
-        <p>Data:</p>
-        <ul>
-          {#each Object.entries(data) as [key, value]}
-            <li>{key}: {value}</li>
-          {/each}
-        </ul>
-      {/if}
+      <!-- <Router {routes} /> -->
+      <br />
+      <DailyReading />
     </div>
     <!-- <footer
       class="bottom-0 z-20 bg-white w-full flex items-center justify-center h-12 sticky px-2 sm:px-4 py-2.5"
