@@ -30,7 +30,6 @@
   onMount(() => {
     currentDay = new Date().getDate();
     proverbOfDay = currentDay;
-
     startPsalm = currentDay * 5;
     endPsalm = startPsalm + 4;
     fetchProverbText();
@@ -61,7 +60,6 @@
 
       // console.log("textOfProverbs: ", textOfProverbs);
       isProverbsLoading = false;
-      // isAccordionOpen = true;
     } catch (error) {
       isProverbsLoading = false;
       console.error("Error fetching proverb text:", error);
@@ -79,47 +77,15 @@
 
   function showToast(message: string) {
     toastMessage = message;
-    // setTimeout(() => {
-    //   toastMessage = "";
-    // }, 8000);
   }
 </script>
 
 <main class="w-full px-5 pb-5">
-  <!-- <h3>
-    Psalms of the Day: {`Psalms ${startPsalm} - Psalms ${endPsalm}`}
-  </h3> -->
   {#if toastMessage !== ""}
-    <!-- <Toast class="w-full">
-      <svelte:fragment slot="icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-          ><path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"
-          /><path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"
-          />
-        </svg>
-      </svelte:fragment>
-      {toastMessage}
-    </Toast> -->
     <Modal title="Copied to clipboard:" bind:open={defaultModal} autoclose>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
         "{toastMessage}"
       </p>
-      <!-- <svelte:fragment slot='footer'>
-    <Button on:click={() => alert('Handle "success"')}>I accept</Button>
-    <Button color="alternative">Decline</Button>
-  </svelte:fragment> -->
     </Modal>
   {/if}
   <Heading
