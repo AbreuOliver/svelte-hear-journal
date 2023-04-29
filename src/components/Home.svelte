@@ -5,10 +5,4 @@
 </script>
 
 <!-- <p class="text-xl dark:text-white">Svelte + Vite + Typescript + TailwindCSS + Flowbite-Svelte + Svelte-Spa-Router</p> -->
-{#each blogs as blog}
-  <Card
-    title={blog.title}
-    description={blog.content}
-    publishDate={format(blog.publishDate)}
-  />
-{/each}
+<h1>You are home!</h1>
