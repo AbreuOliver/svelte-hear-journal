@@ -18,6 +18,14 @@
   let isAccordionOpen: boolean = false;
   let toastMessage: string = "";
   let defaultModal = false;
+  let isProverbsLoading: boolean = false;
+
+  const formattedDate = new Date().toLocaleDateString("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   onMount(() => {
     currentDay = new Date().getDate();
@@ -30,6 +38,7 @@
 
   async function fetchProverbText() {
     try {
+      isProverbsLoading = true;
       const response = await axios.get(
         `https://labs.bible.org/api/?passage=Proverbs%20${proverbOfDay}&type=json`
       );
@@ -37,7 +46,7 @@
       let totalVersesInProverbs = response.data.map(
         (verse: any) => verse.text
       ).length;
-
+      isProverbsLoading = false;
       console.log(
         `Proverbs ${proverbOfDay}; Total Verses in Chapter: ${totalVersesInProverbs}`
       );
@@ -46,16 +55,15 @@
         `https://bible-api.com/proverbs%20${proverbOfDay}:1-${totalVersesInProverbs}?translation=kjv`
       );
 
-      // console.log("additionalResponse: ", additionalResponse);
-
       textOfProverbs = additionalResponse.data.verses.map((verse: any) =>
         verse.text.replace(/\n/g, " ")
       );
 
       // console.log("textOfProverbs: ", textOfProverbs);
-
-      isAccordionOpen = true;
+      isProverbsLoading = false;
+      // isAccordionOpen = true;
     } catch (error) {
+      isProverbsLoading = false;
       console.error("Error fetching proverb text:", error);
     }
   }
@@ -77,7 +85,7 @@
   }
 </script>
 
-<main class="w-full px-5">
+<main class="w-full px-5 pb-5">
   <!-- <h3>
     Psalms of the Day: {`Psalms ${startPsalm} - Psalms ${endPsalm}`}
   </h3> -->
@@ -104,9 +112,9 @@
       </svelte:fragment>
       {toastMessage}
     </Toast> -->
-    <Modal title="Verse copied to clipboard" bind:open={defaultModal} autoclose>
+    <Modal title="Copied to clipboard:" bind:open={defaultModal} autoclose>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        {toastMessage}
+        "{toastMessage}"
       </p>
       <!-- <svelte:fragment slot='footer'>
     <Button on:click={() => alert('Handle "success"')}>I accept</Button>
@@ -121,65 +129,46 @@
     >Daily Bible Reading</Heading
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400"
-    >Selected readings from wisdom literature from the Holy Bible.</P
+    >{formattedDate}</P
   >
   <Accordion
     activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
     inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
   >
     <AccordionItem>
-      <span slot="header">Proverbs {proverbOfDay}</span>
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#each textOfProverbs as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
-      </ol>
-      <!-- <p class="mb-2 text-gray-500 dark:text-gray-400">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
-        necessitatibus sint explicabo ...
-      </p> -->
+      <span slot="header">Proverbs {proverbOfDay} </span>
+      {#if isProverbsLoading}
+        <p>Loading...</p>
+      {:else}
+        <ol
+          class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+        >
+          {#each textOfProverbs as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        </ol>
+      {/if}
     </AccordionItem>
     <AccordionItem>
-      <span slot="header">Psalms {startPsalm}</span>
-      <p class="mb-2 text-gray-500 dark:text-gray-400">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
-        necessitatibus sint explicabo ...
-      </p>
-      <p class="mb-2 text-gray-500 dark:text-gray-400">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ab
-        necessitatibus sint explicabo ...
-      </p>
-      <p class="mb-2 text-gray-500 dark:text-gray-400">
-        Learn more about these technologies:
-      </p>
-      <ul class="list-disc pl-5 dark:text-gray-400 text-gray-500">
-        <li>
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
-            class="text-blue-600 dark:text-blue-500 hover:underline"
-            >Lorem ipsum</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://tailwindui.com/"
-            rel="noreferrer"
-            target="_blank"
-            class="text-blue-600 dark:text-blue-500 hover:underline"
-            >Tailwind UI</a
-          >
-        </li>
-      </ul>
+      <span slot="header">Psalm {startPsalm}</span>
+    </AccordionItem>
+    <AccordionItem>
+      <span slot="header">Psalm {startPsalm + 1}</span>
+    </AccordionItem>
+    <AccordionItem>
+      <span slot="header">Psalm {startPsalm + 2}</span>
+    </AccordionItem>
+    <AccordionItem>
+      <span slot="header">Psalm {startPsalm + 3}</span>
+    </AccordionItem>
+    <AccordionItem>
+      <span slot="header">Psalm {startPsalm + 4}</span>
     </AccordionItem>
   </Accordion>
 </main>
