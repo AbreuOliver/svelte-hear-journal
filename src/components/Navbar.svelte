@@ -13,7 +13,7 @@
     <div class="flex items-center justify-center w-full">
       <NavBrand style="display: flex; flex-grow: 1;" href="/">
         <img
-          src="/src/assets/HEAR-Journal-Online.svg"
+          src="https://ik.imagekit.io/bip1v395ybp/HEAR-Journal-Online_bySfVdzCd.svg"
           class="mr-3 h-6 sm:h-9"
           alt="HEAR Journal Logo"
         />
