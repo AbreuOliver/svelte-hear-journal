@@ -9,6 +9,7 @@
     Toast,
     Modal,
   } from "flowbite-svelte";
+  import { readingPlanSelected, weekNumberSelected } from "./store";
 
   let currentDay: number;
   let proverbOfDay: number;
@@ -78,6 +79,13 @@
   function showToast(message: string) {
     toastMessage = message;
   }
+
+  let weekNumber;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+  });
+
+  console.log("READING PLAN SELECTED:", readingPlanSelected);
 </script>
 
 <main class="w-full px-5 pb-5">
@@ -92,10 +100,10 @@
     tag="h2"
     class="my-4 text-left"
     customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
-    >Daily Bible Reading</Heading
+    >Bible Reading Plan</Heading
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400"
-    >{formattedDate}</P
+    >Foundations New Testament: Week {weekNumber}</P
   >
   <Accordion
     activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
