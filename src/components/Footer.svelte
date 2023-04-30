@@ -1,13 +1,15 @@
 <script>
+  // import Router, { location, link } from "svelte-spa-router";
 </script>
 
 <footer
-  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 text-xs md:h-20"
+  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[6rem]"
 >
   <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
-    <button
+    <a
+      href="#/memory-verse"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
     >
       <svg
         class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
@@ -28,10 +30,12 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Memorize</span
       >
-    </button>
-    <button
+    </a>
+
+    <a
+      href="#/reading-plan"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -60,11 +64,12 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Read</span
       >
-    </button>
+    </a>
 
-    <button
+    <a
+      href="#/journal"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
     >
       <svg
         class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
@@ -83,10 +88,11 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Journal</span
       >
-    </button>
-    <button
+    </a>
+    <a
+      href="#/settings"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
     >
       <svg
         class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
@@ -107,6 +113,6 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Settings</span
       >
-    </button>
+    </a>
   </div>
 </footer>
