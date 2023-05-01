@@ -25,5 +25,6 @@
     <Button class="my-4" on:click={pop}>Back</Button>
   </div>
 {:else}
-  <NotFound />
+  <!-- <NotFound /> -->
+  <h1>Hi :-)</h1>
 {/if}

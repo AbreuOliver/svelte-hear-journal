@@ -1,5 +1,28 @@
-<script>
+<script lang="ts">
   import { Navbar, NavBrand, DarkMode } from "flowbite-svelte";
+
+  let logo: string;
+
+  const lightLogo: string = `https://ik.imagekit.io/bip1v395ybp/HEARLogoLight_P6zpi-UUGo.svg`;
+  const darkLogo: string = `https://ik.imagekit.io/bip1v395ybp/HEARLogoDark_kyGH1ZREL.svg`;
+
+  // Function to toggle the logo based on the color theme
+  function toggleLogo() {
+    if (
+      localStorage.getItem("color-theme") === "dark" ||
+      (!("color-theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      console.log("DARK MODE ON");
+      logo = darkLogo;
+    } else {
+      console.log("DARK MODE OFF");
+      logo = lightLogo;
+    }
+  }
+
+  // Call the toggleLogo function initially
+  toggleLogo();
 </script>
 
 <nav
@@ -12,11 +35,7 @@
   >
     <div class="flex items-center justify-center w-full">
       <NavBrand style="display: flex; flex-grow: 1;" href="/">
-        <img
-          src="https://ik.imagekit.io/bip1v395ybp/HEAR-Journal-Online_bySfVdzCd.svg"
-          class="mx-2 h-7 sm:h-9"
-          alt="HEAR Journal Logo"
-        />
+        <img src={logo} class="mx-2 h-7 sm:h-9" alt="HEAR Journal Logo" />
         <span
           class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
           >Journal</span
@@ -24,6 +43,7 @@
       </NavBrand>
       <DarkMode
         class="item-center justify-center grow-1 border-1 border-inherit"
+        on:click={toggleLogo}
       />
     </div>
   </Navbar>

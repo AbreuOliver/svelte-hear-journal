@@ -1,5 +1,5 @@
 // @ts-ignore
-import MemoryVerse from "./components/Home.svelte";
+import MemoryVerse from "./components/MemoryVerses.svelte";
 // @ts-ignore
 import ReadingPlan from "./components/ReadingPlan.svelte";
 // @ts-ignore

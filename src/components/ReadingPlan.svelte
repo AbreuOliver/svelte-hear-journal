@@ -1,69 +1,40 @@
 <script lang="ts">
   import axios from "axios";
   import { onMount } from "svelte";
+  import { AccordionItem, Accordion, Modal } from "flowbite-svelte";
   import {
-    Heading,
-    P,
-    AccordionItem,
-    Accordion,
-    Toast,
-    Modal,
-  } from "flowbite-svelte";
-  import { readingPlanSelected, weekNumberSelected } from "./store";
+    readingPlanSelected,
+    weekNumberSelected,
+    selectedFontSyleForBibleText,
+  } from "./store";
+  import * as readingPlanJSON from "../../readingPlans.json";
+  import PageHeading from "./PageHeading.svelte";
 
-  let currentDay: number;
-  let proverbOfDay: number;
-  let startPsalm: number;
-  let endPsalm: number;
-  let textOfProverbs: string[] = [];
-  let isAccordionOpen: boolean = false;
+  let formattedBibleTextforPlanDay1: string[] = [];
+  let formattedBibleTextforPlanDay2: string[] = [];
   let toastMessage: string = "";
   let defaultModal = false;
-  let isProverbsLoading: boolean = false;
-
-  const formattedDate = new Date().toLocaleDateString("en-US", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
 
   onMount(() => {
-    currentDay = new Date().getDate();
-    proverbOfDay = currentDay;
-    startPsalm = currentDay * 5;
-    endPsalm = startPsalm + 4;
-    fetchProverbText();
+    getBibleTextForPlans();
   });
 
-  async function fetchProverbText() {
+  async function getBibleTextForPlans() {
     try {
-      isProverbsLoading = true;
-      const response = await axios.get(
-        `https://labs.bible.org/api/?passage=Proverbs%20${proverbOfDay}&type=json`
+      const bibleTextforPlanDay1 = await axios.get(
+        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[0]}?translation=kjv`
       );
-
-      let totalVersesInProverbs = response.data.map(
-        (verse: any) => verse.text
-      ).length;
-      isProverbsLoading = false;
-      console.log(
-        `Proverbs ${proverbOfDay}; Total Verses in Chapter: ${totalVersesInProverbs}`
+      formattedBibleTextforPlanDay1 = bibleTextforPlanDay1.data.verses.map(
+        (verse: any) => verse.text.replace(/\n/g, " ")
       );
-
-      const additionalResponse = await axios.get(
-        `https://bible-api.com/proverbs%20${proverbOfDay}:1-${totalVersesInProverbs}?translation=kjv`
+      const bibleTextforPlanDay2 = await axios.get(
+        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[1]}?translation=kjv`
       );
-
-      textOfProverbs = additionalResponse.data.verses.map((verse: any) =>
-        verse.text.replace(/\n/g, " ")
+      formattedBibleTextforPlanDay2 = bibleTextforPlanDay2.data.verses.map(
+        (verse: any) => verse.text.replace(/\n/g, " ")
       );
-
-      // console.log("textOfProverbs: ", textOfProverbs);
-      isProverbsLoading = false;
     } catch (error) {
-      isProverbsLoading = false;
-      console.error("Error fetching proverb text:", error);
+      console.error("Error fetching Bible text:", error);
     }
   }
 
@@ -85,7 +56,17 @@
     weekNumber = value;
   });
 
-  console.log("READING PLAN SELECTED:", readingPlanSelected);
+  let planSelected;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+  });
+
+  let bibleTextFontStyle;
+  selectedFontSyleForBibleText.subscribe((value) => {
+    bibleTextFontStyle = value;
+  });
+
+  console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
 <main class="w-full px-5 pb-5">
@@ -96,53 +77,70 @@
       </p>
     </Modal>
   {/if}
-  <Heading
-    tag="h2"
-    class="my-4 text-left"
-    customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
-    >Bible Reading Plan</Heading
-  >
-  <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400"
-    >Foundations New Testament: Week {weekNumber}</P
-  >
+  <PageHeading headerText="Bible Reading" />
   <Accordion
     activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
     inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
   >
-    <AccordionItem>
-      <span slot="header">Proverbs {proverbOfDay} </span>
-      {#if isProverbsLoading}
-        <p>Loading...</p>
-      {:else}
-        <ol
-          class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-        >
-          {#each textOfProverbs as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        </ol>
-      {/if}
+    <AccordionItem class="sticky top-6">
+      <span slot="header"
+        ><span class="text-gray-800">Day 1 • </span>
+        {readingPlanJSON[planSelected][weekNumber].plan[0]}</span
+      >
+      <ol
+        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+      >
+        {#each formattedBibleTextforPlanDay1 as verse}
+          <li
+            class="mb-2 text-gray-500 dark:text-gray-400 {bibleTextFontStyle}"
+            on:click={copyText}
+            on:keypress={copyText}
+          >
+            {verse}
+          </li>
+        {/each}
+      </ol>
     </AccordionItem>
-    <AccordionItem>
-      <span slot="header">Psalm {startPsalm}</span>
+    <AccordionItem class="sticky">
+      <span slot="header"
+        ><span class="text-gray-800">Day 2 • </span>{readingPlanJSON[
+          planSelected
+        ][weekNumber].plan[1]}</span
+      >
+      <ol
+        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+      >
+        {#each formattedBibleTextforPlanDay2 as verse}
+          <li
+            class="mb-2 text-gray-500 dark:text-gray-400"
+            on:click={copyText}
+            on:keypress={copyText}
+          >
+            {verse}
+          </li>
+        {/each}
+      </ol>
     </AccordionItem>
-    <AccordionItem>
-      <span slot="header">Psalm {startPsalm + 1}</span>
+    <AccordionItem class="sticky">
+      <span slot="header"
+        ><span class="text-gray-800">Day 3 • </span>{readingPlanJSON[
+          planSelected
+        ][weekNumber].plan[2]}</span
+      >
     </AccordionItem>
-    <AccordionItem>
-      <span slot="header">Psalm {startPsalm + 2}</span>
+    <AccordionItem class="sticky">
+      <span slot="header"
+        ><span class="text-gray-800">Day 4 • </span>{readingPlanJSON[
+          planSelected
+        ][weekNumber].plan[3]}</span
+      >
     </AccordionItem>
-    <AccordionItem>
-      <span slot="header">Psalm {startPsalm + 3}</span>
-    </AccordionItem>
-    <AccordionItem>
-      <span slot="header">Psalm {startPsalm + 4}</span>
+    <AccordionItem class="sticky">
+      <span slot="header"
+        ><span class="text-gray-800">Day 5 • </span>{readingPlanJSON[
+          planSelected
+        ][weekNumber].plan[4]}</span
+      >
     </AccordionItem>
   </Accordion>
 </main>
