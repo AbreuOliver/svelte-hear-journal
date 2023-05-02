@@ -4,6 +4,7 @@
   import { AccordionItem, Accordion, Modal } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected } from "./store";
   import PageHeading from "./PageHeading.svelte";
+  import VerseReview from "./VerseReview.svelte";
   import * as readingPlanJSON from "../../readingPlans.json";
 
   let formattedMemoryVerseText: string[] = [];
@@ -72,6 +73,7 @@
   {/if}
   <PageHeading headerText="Memory Verses" />
   <Accordion
+    class="rounded-xl bg-white dark:bg-gray-800"
     activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
     inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
   >
@@ -98,4 +100,5 @@
       {/if}
     </AccordionItem>
   </Accordion>
+  <!-- <VerseReview /> -->
 </main>
