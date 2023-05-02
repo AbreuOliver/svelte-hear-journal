@@ -5,9 +5,9 @@ import MemoryVerse from "./components/MemoryVerses.svelte";
 // @ts-ignore
 import ReadingPlan from "./components/ReadingPlan.svelte";
 // @ts-ignore
-import Journal from "./components/About.svelte";
+import Journal from "./components/Journal.svelte";
 // @ts-ignore
-import Settings from "./components/Article.svelte";
+import Settings from "./components/Settings.svelte";
 // @ts-ignore
 // import NotFound from "./components/NotFound.svelte";
 

@@ -6,23 +6,17 @@
   const lightLogo: string = `https://ik.imagekit.io/bip1v395ybp/HEARLogoLight_P6zpi-UUGo.svg`;
   const darkLogo: string = `https://ik.imagekit.io/bip1v395ybp/HEARLogoDark_kyGH1ZREL.svg`;
 
-  // Function to toggle the logo based on the color theme
-  function toggleLogo() {
-    if (
-      localStorage.getItem("color-theme") === "dark" ||
-      (!("color-theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      console.log("DARK MODE ON");
-      logo = darkLogo;
-    } else {
-      console.log("DARK MODE OFF");
-      logo = lightLogo;
-    }
+  if (
+    localStorage.getItem("color-theme") === "dark" ||
+    (!("color-theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    console.log("DARK MODE ON");
+    logo = darkLogo;
+  } else {
+    console.log("DARK MODE OFF");
+    logo = lightLogo;
   }
-
-  // Call the toggleLogo function initially
-  toggleLogo();
 </script>
 
 <nav
@@ -43,7 +37,6 @@
       </NavBrand>
       <DarkMode
         class="item-center justify-center grow-1 border-1 border-inherit"
-        on:click={toggleLogo}
       />
     </div>
   </Navbar>

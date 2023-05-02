@@ -15,6 +15,8 @@
     getMemoryVerse();
   });
 
+  console.log("FROM STORE: ", $readingPlanSelected);
+
   async function getMemoryVerse() {
     try {
       isMemoryVerseLoading = true;

@@ -3,14 +3,13 @@
   import { readingPlanSelected, weekNumberSelected } from "./store";
 
   enum ValuesPipe {
-    readingPlanNTF260 = "F260 New Testament",
-    // Add more enum values and their corresponding mappings here
+    F260_NewTestament = "F260 New Testament",
+    F260_WholeBible = "F260 Whole Bible",
   }
 
   function applyValuesPipe(plan: keyof typeof ValuesPipe): string {
     return ValuesPipe[plan];
   }
-  const planName = applyValuesPipe("readingPlanNTF260");
 
   export let headerText;
 
@@ -19,7 +18,7 @@
     weekNumber = value;
   });
 
-  let planSelected;
+  let planSelected: string;
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
   });
@@ -34,7 +33,8 @@
     customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
     >{headerText}</Heading
   >
-  <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400"
-    >{planName} Plan • <span class="text-blue-600">Week {weekNumber}</span></P
+  <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
+    {applyValuesPipe("F260_NewTestament")} Plan •
+    <span class="text-blue-600">Week {weekNumber}</span></P
   >
 </main>

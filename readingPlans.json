@@ -1,5 +1,5 @@
 {
-  "readingPlanNTF260": {
+  "F260_NewTestament": {
     "1": {
       "plan": ["Luke 1", "Luke 2", "Luke 3", "Luke 4", "Luke 5"],
       "memoryVerses": ["Matthew 5:1-2"]
@@ -356,6 +356,16 @@
         "Matthew 28"
       ],
       "memoryVerses": ["Matthew 7:28-29"]
+    }
+  },
+  "F260_WholeBible": {
+    "1": {
+      "plan": ["Genesis 1-2", "Luke 2", "Luke 3", "Luke 4", "Luke 5"],
+      "memoryVerses": ["Genesis 5:1-2"]
+    },
+    "2": {
+      "plan": ["Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10"],
+      "memoryVerses": ["Matthew 5:3-4"]
     }
   }
 }
