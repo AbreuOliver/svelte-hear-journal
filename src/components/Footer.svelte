@@ -1,11 +1,24 @@
 <script>
   // import Router, { location, link } from "svelte-spa-router";
+  import { SpeedDial, SpeedDialButton } from "flowbite-svelte";
 </script>
 
-<footer
-  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]"
+<SpeedDial
+  defaultClass="absolute right-5 bottom-20"
+  tooltip="none"
+  textOutside
+  trigger="click"
 >
-  <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
+  <!-- <footer
+  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]"
+> -->
+  <!-- <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto"> -->
+  <SpeedDialButton
+    name="Memory Verses"
+    defaultClass="absolute right-5 bottom-20"
+    tooltip="none"
+    textOutside
+  >
     <a
       href="#/memory-verse"
       type="button"
@@ -30,8 +43,15 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Memorize</span
       >
-    </a>
+    </a></SpeedDialButton
+  >
 
+  <SpeedDialButton
+    name=""
+    defaultClass="absolute right-5 bottom-20"
+    tooltip="none"
+    textOutside
+  >
     <a
       href="#/reading-plan"
       type="button"
@@ -64,8 +84,15 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Read</span
       >
-    </a>
+    </a></SpeedDialButton
+  >
 
+  <SpeedDialButton
+    name=""
+    defaultClass="absolute right-5 bottom-20"
+    tooltip="none"
+    textOutside
+  >
     <a
       href="#/journal"
       type="button"
@@ -88,7 +115,14 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Journal</span
       >
-    </a>
+    </a></SpeedDialButton
+  >
+  <SpeedDialButton
+    name=""
+    defaultClass="absolute right-5 bottom-20"
+    tooltip="none"
+    textOutside
+  >
     <a
       href="#/settings"
       type="button"
@@ -113,6 +147,8 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Settings</span
       >
-    </a>
-  </div>
-</footer>
+    </a></SpeedDialButton
+  >
+  <!-- </div> -->
+  <!-- </footer> -->
+</SpeedDial>
