@@ -155,7 +155,7 @@
           <hr
             class="h-px my-2 bg-gray-200 dark:bg-gray-700 w-[150vw] flex justify-center items-center ml-[-5rem]"
           />
-          <Sidebar class="w-full">
+          <Sidebar class="w-full max-h-full">
             <SidebarWrapper
               divClass="overflow-y-scroll py-4 rounded dark:bg-gray-800"
             >
