@@ -1,24 +1,11 @@
 <script>
   // import Router, { location, link } from "svelte-spa-router";
-  import { SpeedDial, SpeedDialButton } from "flowbite-svelte";
 </script>
 
-<SpeedDial
-  defaultClass="absolute right-5 bottom-20"
-  tooltip="none"
-  textOutside
-  trigger="click"
->
-  <!-- <footer
+<footer
   class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]"
-> -->
-  <!-- <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto"> -->
-  <SpeedDialButton
-    name="Memory Verses"
-    defaultClass="absolute right-5 bottom-20"
-    tooltip="none"
-    textOutside
-  >
+>
+  <div class="grid h-full max-w-[770px] grid-cols-3 mx-auto">
     <a
       href="#/memory-verse"
       type="button"
@@ -43,15 +30,8 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Memorize</span
       >
-    </a></SpeedDialButton
-  >
+    </a>
 
-  <SpeedDialButton
-    name=""
-    defaultClass="absolute right-5 bottom-20"
-    tooltip="none"
-    textOutside
-  >
     <a
       href="#/reading-plan"
       type="button"
@@ -84,15 +64,8 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Read</span
       >
-    </a></SpeedDialButton
-  >
+    </a>
 
-  <SpeedDialButton
-    name=""
-    defaultClass="absolute right-5 bottom-20"
-    tooltip="none"
-    textOutside
-  >
     <a
       href="#/journal"
       type="button"
@@ -115,14 +88,32 @@
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
         >Journal</span
       >
-    </a></SpeedDialButton
-  >
-  <SpeedDialButton
-    name=""
-    defaultClass="absolute right-5 bottom-20"
-    tooltip="none"
-    textOutside
-  >
+    </a>
+    <!-- <a
+      href="#/settings"
+      type="button"
+      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
+    >
+      <svg
+        class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><circle cx="12" cy="12" r="3" /><path
+          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+        /></svg
+      >
+      <span
+        class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+        >Feed</span
+      >
+    </a>
     <a
       href="#/settings"
       type="button"
@@ -145,10 +136,8 @@
       >
       <span
         class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
-        >Settings</span
+        >Timeline</span
       >
-    </a></SpeedDialButton
-  >
-  <!-- </div> -->
-  <!-- </footer> -->
-</SpeedDial>
+    </a> -->
+  </div>
+</footer>
