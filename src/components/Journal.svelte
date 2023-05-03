@@ -1,18 +1,34 @@
 <script lang="ts">
-  import { Heading, Label, Input, Textarea } from "flowbite-svelte";
+  import { Heading, Label, Input, Textarea, Button } from "flowbite-svelte";
   import PageHeading from "./PageHeading.svelte";
-  let textareaprops = {
-    id: "message",
+  let explanation = {
+    id: "explanation",
     name: "message",
     label: "Your message",
     rows: 4,
-    placeholder: "Those that endure difficulty will be rewarded by God...",
+    placeholder: "Those that endure difficulty will be rewarded by God",
+  };
+  let application = {
+    id: "application",
+    name: "message",
+    label: "Your message",
+    rows: 4,
+    placeholder:
+      "I should see my difficulties as opportunities for eternal reward",
+  };
+  let response = {
+    id: "response",
+    name: "message",
+    label: "Your message",
+    rows: 4,
+    placeholder:
+      "Thank you for allowing my difficulties as a Christian to be meaningful now and in eternity. Help me to endure hardships as a good soldier of Jesus Christ, so that You are glorified",
   };
 </script>
 
-<main class="w-full px-5 pb-5">
-  <PageHeading headerText="Journal" />
-  <hr class="my-6 bg-gray-200 border-0 dark:bg-gray-700" />
+<form class="w-full px-5 pb-5">
+  <PageHeading headerText="My Journal" />
+  <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
   <Heading
     tag="h4"
     class="my-4 text-left"
@@ -21,7 +37,7 @@
   >
   <div class="mb-6">
     <Label for="default-input" class="block mb-2"
-      >Which verse stood out to you?</Label
+      >Which verse stood out to me?</Label
     >
     <Input id="default-input" placeholder="James 1:12" />
   </div>
@@ -34,11 +50,11 @@
   >
   <div class="mb-6">
     <Label for="default-input" class="block mb-2"
-      >What does that verse teach, in your words?</Label
+      >What does this verse teach me?</Label
     >
-    <Textarea {...textareaprops} />
+    <Textarea {...explanation} />
   </div>
-  <hr class="my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+  <hr class="my-1 bg-gray-200 border-0 dark:bg-gray-700" />
   <Heading
     tag="h4"
     class="my-4 text-left"
@@ -46,9 +62,22 @@
   >
   <div class="mb-6">
     <Label for="default-input" class="block mb-2"
-      >How can you apply the truth of that verse?</Label
+      >What should I believe/do as a result of the truth of this verse?</Label
     >
-    <Textarea {...textareaprops} />
+    <Textarea {...application} />
+  </div>
+  <hr class="my-1 bg-gray-200 border-0 dark:bg-gray-700" />
+  <Heading
+    tag="h4"
+    class="my-4 text-left"
+    customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+    >Respond</Heading
+  >
+  <div class="mb-6">
+    <Label for="default-input" class="block mb-2">Dear Heavenly Father,</Label>
+    <Textarea {...response} />
   </div>
   <hr class="my-6 bg-gray-200 border-0 dark:bg-gray-700" />
-</main>
+  <Button class="min-w-[150px] mb-10">Save</Button>
+  <hr class="my-6 bg-gray-200 border-0 dark:bg-gray-700" />
+</form>
