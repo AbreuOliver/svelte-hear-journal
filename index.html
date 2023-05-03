@@ -2,13 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="theme-color"
+      content="#fff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#18181B"
+      media="(prefers-color-scheme: dark)"
+    />
     <link
       rel="icon"
       type="image/svg+xml"
       href="https://ik.imagekit.io/bip1v395ybp/HEARLogoLight_P6zpi-UUGo.svg"
     />
+    <link
+      href="https://ik.imagekit.io/bip1v395ybp/HEARLogoLight_P6zpi-UUGo.svg"
+      rel="icon"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      href="https://ik.imagekit.io/bip1v395ybp/HEARLogoDark_kyGH1ZREL.svg"
+      rel="icon"
+      media="(prefers-color-scheme: dark)"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HEAR Journal Online</title>
+    <script>
+      const storageValue = JSON.parse(localStorage.getItem("prefersLight"));
+      const prefersLight = storageValue
+        ? Boolean(storageValue)
+        : window?.matchMedia("(prefers-color-scheme: light)").matches;
+
+      localStorage.setItem("prefersLight", prefersLight);
+
+      // default to dark mode unless explicitly set preference to light
+      if (prefersLight) {
+        document.querySelector("html").classList.remove("dark");
+      }
+    </script>
   </head>
 
   <body class="bg-white dark:bg-gray-900">
