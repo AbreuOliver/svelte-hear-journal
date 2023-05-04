@@ -196,7 +196,7 @@
                       >
                         Reading Plan
                       </p>
-                      <Button class="grow-1"
+                      <Button class="grow-1" color="alternative"
                         ><Chevron
                           >{applyValuesPipe("F260_NewTestament")}</Chevron
                         ></Button
@@ -248,7 +248,7 @@
                       >
                         Week Number
                       </p>
-                      <Button class="grow-1"
+                      <Button class="grow-1" color="alternative"
                         ><Chevron>Week #{weekSelected}</Chevron></Button
                       >
                       <Dropdown
@@ -322,7 +322,7 @@
                       >
                         Logo
                       </p>
-                      <Button class="grow-1"
+                      <Button class="grow-1" color="alternative"
                         ><Chevron>Dark Icon</Chevron></Button
                       >
                       <Dropdown
@@ -371,7 +371,7 @@
                       >
                         Accent Color
                       </p>
-                      <Button class="grow-1"
+                      <Button class="grow-1" color="alternative"
                         ><Chevron>Tech Blue</Chevron></Button
                       >
                       <Dropdown
@@ -407,7 +407,7 @@
                       >
                         Bible Text Font
                       </p>
-                      <Button class="grow-1"
+                      <Button class="grow-1" color="alternative"
                         ><Chevron>Sans Serif</Chevron></Button
                       >
                       <Dropdown
@@ -443,7 +443,9 @@
                       >
                         Bible Translation
                       </p>
-                      <Button class="grow-1"><Chevron>KJV</Chevron></Button>
+                      <Button class="grow-1" color="alternative"
+                        ><Chevron>KJV</Chevron></Button
+                      >
                       <Dropdown
                         placement="left"
                         class="w-auto overflow-y-auto py-1 h-48"
