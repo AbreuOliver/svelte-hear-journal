@@ -35,7 +35,7 @@
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     {applyValuesPipe("F260_NewTestament")} Plan •
-    <span class="text-blue-600">
+    <span class="text-yellow-400">
       Week {weekNumber}
     </span>
   </P>
