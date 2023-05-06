@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { P, Card, Button } from "flowbite-svelte";
+  //@ts-ignore
+  import { Hr, Card, Button } from "flowbite-svelte";
   import PageHeading from "./PageHeading.svelte";
 </script>
 
-<main class="min-h-[75vh] w-full p-5 flex justify-center items-end" id="main">
+<main class="min-h-[75vh] w-full p-5 flex justify-center items-start" id="main">
   <Card
     img="https://ik.imagekit.io/bip1v395ybp/gray-waves_vUdoArLvW.png"
-    class="w-full"
+    class="w-full h-full"
   >
     <h5
       class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -14,24 +15,14 @@
       HEAR Journal
     </h5>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">
-      Here are the biggest enterprise technology acquisitions of 2021 so far, in
-      reverse chronological order.
+      <Hr class="my-2" height="h-0" />
+      Welcome! <br />
+      <Hr class="my-2" height="h-0" />
+      This tool is designed for users of the <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://replicate.org/what-is-a-hear-journal/">HEAR Bible journaling method</a> and <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://replicate.org/resourcing-disciple-makers/family-reading-plans/">Foundations Bible reading plans</a>. With this app, you can easily access the memory verses and reading plans that correspond to your chosen plan. <br />
+      <Hr class="my-2" height="h-0" />
+      Get started today and simplify your Bible study routine 🙂
+      <!-- <Hr class="my-2" height="h-0" /> -->
     </p>
-    <Button>
-      Login <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-5 h-5 ml-2"
-        ><path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-        /></svg
-      >
-    </Button>
   </Card>
 </main>
 
