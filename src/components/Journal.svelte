@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { Heading, Label, Input, Textarea, Button } from "flowbite-svelte";
+  import {
+    Card,
+    Heading,
+    Label,
+    Input,
+    Textarea,
+    Button,
+  } from "flowbite-svelte";
   import PageHeading from "./PageHeading.svelte";
   let explanation = {
     id: "explanation",
@@ -29,54 +36,64 @@
 <form class="w-full px-5 pb-5">
   <PageHeading headerText="My Journal" />
   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-  <Heading
-    tag="h4"
-    class="my-4 text-left"
-    customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
-    >Highlight</Heading
-  >
-  <div class="mb-6">
-    <Label for="default-input" class="block mb-2"
-      >Which verse stood out to me?</Label
+  <Card>
+    <Heading
+      tag="h4"
+      class="my-3 text-left"
+      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      >Highlight</Heading
     >
-    <Input id="default-input" placeholder="James 1:12" />
-  </div>
-  <hr class="my-4 bg-gray-200 border-0 dark:bg-gray-700" />
-  <Heading
-    tag="h4"
-    class="my-4 text-left"
-    customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
-    >Explain</Heading
-  >
-  <div class="mb-6">
-    <Label for="default-input" class="block mb-2"
-      >What does this verse teach me?</Label
+    <div class="mb-6">
+      <Label for="default-input" class="block mb-2"
+        >Which verse stood out to me?</Label
+      >
+      <Textarea id="default-input" placeholder="James 1:12" />
+    </div>
+
+    <!-- <hr class="my-3 bg-gray-200 border-0 dark:bg-gray-700" />
+   -->
+    <Heading
+      tag="h4"
+      class="my-3 text-left"
+      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      >Explain</Heading
     >
-    <Textarea {...explanation} />
-  </div>
-  <hr class="my-1 bg-gray-200 border-0 dark:bg-gray-700" />
-  <Heading
-    tag="h4"
-    class="my-4 text-left"
-    customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl">Apply</Heading
-  >
-  <div class="mb-6">
-    <Label for="default-input" class="block mb-2"
-      >What should I believe/do as a result of the truth of this verse?</Label
+    <div class="mb-6">
+      <Label for="default-input" class="block mb-2"
+        >What does this verse teach me?</Label
+      >
+      <Textarea {...explanation} />
+    </div>
+
+    <!-- <hr class="my-3 bg-gray-200 border-0 dark:bg-gray-700" />
+   -->
+    <Heading
+      tag="h4"
+      class="my-3 text-left"
+      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      >Apply</Heading
     >
-    <Textarea {...application} />
-  </div>
-  <hr class="my-1 bg-gray-200 border-0 dark:bg-gray-700" />
-  <Heading
-    tag="h4"
-    class="my-4 text-left"
-    customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
-    >Respond</Heading
-  >
-  <div class="mb-6">
-    <Label for="default-input" class="block mb-2">Dear Heavenly Father,</Label>
-    <Textarea {...response} />
-  </div>
+    <div class="mb-6">
+      <Label for="default-input" class="block mb-2"
+        >What should I believe/do as a result of the truth of this verse?</Label
+      >
+      <Textarea {...application} />
+    </div>
+
+    <!-- <hr class="my-3 bg-gray-200 border-0 dark:bg-gray-700" />
+   -->
+    <Heading
+      tag="h4"
+      class="my-3 text-left"
+      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      >Respond</Heading
+    >
+    <div class="mb-6">
+      <Label for="default-input" class="block mb-2">Dear Heavenly Father,</Label
+      >
+      <Textarea {...response} />
+    </div>
+  </Card>
   <hr class="my-6 bg-gray-200 border-0 dark:bg-gray-700" />
   <Button class="min-w-[150px] mb-10">Save</Button>
   <hr class="my-6 bg-gray-200 border-0 dark:bg-gray-700" />

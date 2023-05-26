@@ -5,7 +5,7 @@
 
 <main class="min-h-[75vh] w-full p-5 flex justify-center items-start" id="main">
   <Card
-    img="https://ik.imagekit.io/bip1v395ybp/gray-waves_vUdoArLvW.png"
+    img="https://images.unsplash.com/photo-1590752512219-af17f0207ae8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2969&q=80"
     class="w-full h-full"
   >
     <h5
@@ -31,7 +31,9 @@
       <Hr class="my-2" height="h-0" />
       Get started today and simplify your Bible study routine 🙂
     </p>
-    <Hr class="my-6" height="h-0" />
-    <Button class="min-w-full" href="#/reading-plan">View Reading Plan</Button>
+    <Hr class="my-4" height="h-0" />
+    <Button class="min-w-full mb-2" href="#/reading-plan"
+      >View Reading Plan</Button
+    >
   </Card>
 </main>
