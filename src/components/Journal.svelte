@@ -35,14 +35,14 @@
 
 <form class="w-full px-5 pb-5">
   <PageHeading headerText="My Journal" />
-  <Card class="mb-20">
+  <Card class="mb-20" style="max-width: 100%;">
     <Heading
       tag="h4"
       class="my-3 text-left"
       customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
       >Highlight</Heading
     >
-    <div class="mb-2">
+    <div class="mb-">
       <Label for="default-input" class="block mb-2"
         >Which verse stood out to me?</Label
       >
@@ -54,7 +54,7 @@
       customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
       >Explain</Heading
     >
-    <div class="mb-2">
+    <div class="mb-">
       <Label for="default-input" class="block mb-2"
         >What does this verse teach me?</Label
       >
@@ -66,7 +66,7 @@
       customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
       >Apply</Heading
     >
-    <div class="mb-2">
+    <div class="mb-">
       <Label for="default-input" class="block mb-2"
         >What should I believe/do as a result of the truth of this verse?</Label
       >
@@ -78,7 +78,7 @@
       customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
       >Respond</Heading
     >
-    <div class="mb-2">
+    <div class="mb-">
       <Label for="default-input" class="block mb-2">Dear Heavenly Father,</Label
       >
       <Textarea {...response} />

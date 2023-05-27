@@ -7,6 +7,7 @@
   <Card
     img="https://images.unsplash.com/photo-1590752512219-af17f0207ae8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2969&q=80"
     class="w-full h-full"
+    style="max-width: 100%;"
   >
     <h5
       class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
