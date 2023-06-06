@@ -10,7 +10,7 @@
     <Navbar />
 
     <div
-      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[90vh] max-w-full"
+      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[80vh] max-w-full"
     >
       <main
         class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-full max-w-[700px]"
