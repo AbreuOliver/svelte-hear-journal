@@ -6,7 +6,7 @@
 </script>
 
 <div class="w-full h-full">
-  <div class="relative flex flex-col items-center w-full">
+  <div class="relative flex flex-col items-center w-full h-full">
     <Navbar />
 
     <div
@@ -25,3 +25,12 @@
     </div>
   </div>
 </div>
+
+<style>
+  :global(body) {
+    /* Prevent zooming */
+    touch-action: manipulation;
+    touch-action: pan-x pan-y;
+    height: 100%;
+  }
+</style>

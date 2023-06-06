@@ -77,7 +77,10 @@
     activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
     inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
   >
-    <AccordionItem>
+    <AccordionItem
+      class="rounded-xl"
+      activeClasses="rounded-t-lg  bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+    >
       <span slot="header"
         >{readingPlanJSON[planSelected][weekNumber].memoryVerses}</span
       >
