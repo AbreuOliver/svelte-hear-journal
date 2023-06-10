@@ -23,7 +23,6 @@
     Listgroup,
   } from "flowbite-svelte";
   import { sineIn } from "svelte/easing";
-  // import { onMount } from "svelte";
   import {
     readingPlanSelected,
     weekNumberSelected,
@@ -88,7 +87,7 @@
 </script>
 
 <nav
-  class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray0100 dark:border-gray-800 w-full flex items-center justify-center border-b z-20 sticky top-0 left-0 md:h-[5rem]"
+  class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray0100 dark:border-gray-800 w-full flex items-center justify-center border-b z-100 sticky top-0 left-0 md:h-[5rem]"
 >
   <Navbar
     navClass="flex items-center w-full max-w-[700px] px-4 py-2.5"
@@ -160,28 +159,15 @@
               divClass="overflow-y-scroll py-4 rounded dark:bg-gray-800"
             >
               <SidebarGroup>
-                <!-- <SidebarItem label="Sign In">
-                  <svelte:fragment slot="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6"
-                      ><path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                      /></svg
-                    >
-                  </svelte:fragment>
-                </SidebarItem> -->
                 <main class="w-full pb-[10rem]">
-                  <PageHeading headerText="Settings" />
-
-                  <!-- <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" /> -->
-                  <h5
+                  <Heading
+                    tag="h2"
+                    class="my-4 text-left"
+                    customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+                    >Settings</Heading
+                  >
+                  <!-- <PageHeading headerText="Settings" /> -->
+                  <!-- <h5
                     class="mt-2 mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                   >
                     Content
@@ -189,59 +175,6 @@
                   <Card
                     class="max-w-full min-w-full shadow-none my-0 horizontal bg-gray-200 dark:bg-gray-700"
                   >
-                    <!-- ///////////////////////// -->
-                    <div class="flex justify-end items-center my-1.5 border-0">
-                      <p
-                        class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
-                      >
-                        Reading Plan
-                      </p>
-                      <Button class="grow-1" color="alternative"
-                        ><Chevron
-                          >{applyValuesPipe("F260_NewTestament")}</Chevron
-                        ></Button
-                      >
-                      <Dropdown
-                        placement="bottom"
-                        class="w-auto overflow-y-auto py-1 min-h-full max-h-48"
-                      >
-                        <div slot="header" class="px-4 py-2">
-                          <span
-                            class="block text-sm text-gray-900 dark:text-white"
-                            >Select the week of the year</span
-                          >
-                        </div>
-                        <DropdownItem
-                          class="flex border-gray-200 border-1 items-center text-base font-semibold gap-2"
-                        >
-                          <Radio
-                            class=""
-                            name="BibleReadingPlanOptions"
-                            bind:group={planSelected}
-                            value={ValuesPipe.F260_NewTestament}
-                            on:change={updateReadingPlan}
-                          >
-                            {applyValuesPipe("F260_NewTestament")}
-                          </Radio>
-                        </DropdownItem>
-                        <DropdownItem
-                          class="flex items-center text-base font-semibold gap-2"
-                        >
-                          <Radio
-                            name="BibleReadingPlanOptions"
-                            bind:group={planSelected}
-                            value={ValuesPipe.F260_WholeBible}
-                            on:change={updateReadingPlan}
-                            class="disabled"
-                          >
-                            {applyValuesPipe("F260_WholeBible")}
-                          </Radio>
-                        </DropdownItem>
-                      </Dropdown>
-                    </div>
-                    <hr
-                      class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"
-                    />
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
@@ -275,43 +208,13 @@
                         {/each}
                       </Dropdown>
                     </div>
-                  </Card>
-                  <hr class=" mb-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                  <!-- <Card>
-    <h5
-      class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-    >
-      Bible Text Font Family
-    </h5>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">
-      The corresponding memory verses and reading plan will be displayed for
-      your selected week number
-    </p>
-    <Button><Chevron>Selected Week #{weekSelected}</Chevron></Button>
-    <Dropdown placement="left" class="w-auto overflow-y-auto py-1 h-48">
-      <div slot="header" class="px-4 py-2">
-        <span class="block text-sm text-gray-900 dark:text-white"
-          >Select the week of the year</span
-        >
-      </div>
-      {#each Array.from({ length: 50 }, (_, i) => i + 1) as week}
-        <DropdownItem class="flex items-center text-base font-semibold gap-2">
-          <Radio
-            name="group1"
-            bind:group={weekSelected}
-            value={week}
-            on:change={updateWeekNumber}>Week {week}</Radio
-          >
-        </DropdownItem>
-      {/each}
-    </Dropdown>
-  </Card> -->
-                  <h5
+                  </Card> -->
+                  <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                  <!-- <h5
                     class="mt-2 mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                   >
                     Styling
-                  </h5>
+                  </h5> -->
                   <Card
                     class="max-w-full min-w-full shadow-none my-0 horizontal bg-gray-200 dark:bg-gray-700"
                   >
@@ -326,6 +229,7 @@
                         ><Chevron>Dark Icon</Chevron></Button
                       >
                       <Dropdown
+                        disabled="true"
                         placement="bottom"
                         class="w-auto overflow-y-auto py-1 min-h-full max-h-48"
                       >
@@ -477,9 +381,6 @@
           </Sidebar>
         </div>
       </Drawer>
-      <!-- <DarkMode
-        class="item-center justify-center grow-1 border-1 border-inherit"
-      /> -->
     </div>
   </Navbar>
 </nav>

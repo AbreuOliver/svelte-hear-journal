@@ -53,11 +53,13 @@
   let weekNumber;
   weekNumberSelected.subscribe((value) => {
     weekNumber = value;
+    getMemoryVerse();
   });
 
   let planSelected;
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
+    getMemoryVerse();
   });
 
   console.log("READING PLAN SELECTED:", planSelected);

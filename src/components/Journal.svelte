@@ -1,6 +1,9 @@
 <script lang="ts">
   import {
     Card,
+    Dropdown,
+    DropdownItem,
+    Radio,
     Hr,
     P,
     Heading,
@@ -11,11 +14,32 @@
     Button,
     Toast,
   } from "flowbite-svelte";
+  import { readingPlanSelected, weekNumberSelected } from "./store";
   import PageHeading from "./PageHeading.svelte";
 
   let showToast = false;
   let toastMessage = "Journal entry saved 🎉";
   let counter = 6;
+
+  let weekNumber;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+  });
+
+  let planSelected: string;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+  });
+
+  {
+    $weekNumberSelected;
+  }
+
+  let weekSelected = $weekNumberSelected;
+
+  function updateWeekNumber() {
+    weekNumberSelected.set(weekSelected);
+  }
 
   function trigger() {
     show = true;
@@ -132,9 +156,37 @@
     customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
     >Journal</Heading
   >
-  <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-    Record your thoughts for today
-  </P>
+  <div class="flex justify-start items-center">
+    <P class="mb-0 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
+      Thoughts for:
+    </P>
+
+    <Button class="pl-2 ml-0" color="alternative" outline="none"
+      ><span class="text-lg lg:text-lg sm:px-0 xl:px-0 text-blue-400"
+        >Week #{weekSelected}</span
+      >
+    </Button>
+    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
+      <div slot="header" class="px-4 py-2">
+        <span class="block text-sm text-gray-900 dark:text-white"
+          >Select the week of the year. <br />Tap the blue text again to close</span
+        >
+      </div>
+      {#each Array.from({ length: 52 }, (_, i) => i + 1) as week}
+        <DropdownItem class="flex items-center text-base font-semibold gap-2">
+          <span class="w-full p-[.125rem]">Week {week}</span><Radio
+            class="p-4"
+            name="group1"
+            bind:group={weekSelected}
+            value={week}
+            on:change={updateWeekNumber}
+          />
+        </DropdownItem>
+      {/each}
+    </Dropdown>
+  </div>
+  <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
+
   <Card class="mb-20" style="max-width: 100%;">
     <Heading
       tag="h4"

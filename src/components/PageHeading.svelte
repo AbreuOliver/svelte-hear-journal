@@ -1,5 +1,13 @@
 <script lang="ts">
-  import { Heading, P } from "flowbite-svelte";
+  import {
+    Heading,
+    P,
+    Button,
+    Chevron,
+    Dropdown,
+    Radio,
+    DropdownItem,
+  } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected } from "./store";
 
   enum ValuesPipe {
@@ -23,10 +31,21 @@
     planSelected = value;
   });
 
+  {
+    $weekNumberSelected;
+  }
+
+  let weekSelected = $weekNumberSelected;
+
+  function updateWeekNumber() {
+    weekNumberSelected.set(weekSelected);
+    console.log("WEEK NUMBER", weekSelected);
+  }
+
   console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
-<main class="">
+<main>
   <Heading
     tag="h2"
     class="my-4 text-left"
@@ -35,8 +54,34 @@
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     {applyValuesPipe("F260_NewTestament")} Plan •
-    <span class="text-yellow-400">
+    <!-- <span class="text-yellow-400">
       Week {weekNumber}
-    </span>
+    </span> -->
+    <Button class="pl-1" color="alternative" outline="none"
+      ><span class="text-lg lg:text-lg sm:px-0 xl:px-0 text-blue-400"
+        >Week #{weekSelected}</span
+      >
+    </Button>
+    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
+      <div slot="header" class="px-4 py-2">
+        <span class="block text-sm text-gray-900 dark:text-white">
+          Select the week of the year. <br />Tap the blue text again to dismiss
+        </span>
+      </div>
+      {#each Array.from({ length: 52 }, (_, i) => i + 1) as week}
+        <DropdownItem
+          class="flex w-full items-center text-base font-semibold gap-4 text-center {weekSelected ===
+          week
+            ? 'bg-blue-100 text-blue-600'
+            : ''}"
+          on:click={() => {
+            weekSelected = week;
+            updateWeekNumber();
+          }}
+        >
+          <span class="grow-[1]">Week {week}</span>
+        </DropdownItem>
+      {/each}
+    </Dropdown>
   </P>
 </main>

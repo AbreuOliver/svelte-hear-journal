@@ -1,9 +1,22 @@
 <script>
   import Router, { location } from "svelte-spa-router";
+
+  let footerHeight = "h-16";
+
+  window.addEventListener("DOMContentLoaded", () => {
+    let displayMode = "browser tab";
+    if (
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone
+    ) {
+      displayMode = "standalone";
+      footerHeight = "h-20"; // Adjust the height for standalone mode
+    }
+  });
 </script>
 
 <footer
-  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]"
+  class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]`}
 >
   <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
     {#if $location === "/memory-verse"}
