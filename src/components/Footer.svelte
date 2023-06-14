@@ -1,18 +1,25 @@
-<script>
-  import Router, { location } from "svelte-spa-router";
+<script lang="ts">
+  import { location } from "svelte-spa-router";
+  import { themeColor } from "./store";
 
   let footerHeight = "h-16";
+
+  let windowVariable: any;
+
+  windowVariable = window.navigator;
 
   window.addEventListener("DOMContentLoaded", () => {
     let displayMode = "browser tab";
     if (
-      window.matchMedia("(display-mode: standalone)").matches ||
-      window.navigator.standalone
+      windowVariable.matchMedia("(display-mode: standalone)").matches ||
+      windowVariable.standalone
     ) {
       displayMode = "standalone";
-      footerHeight = "h-20"; // Adjust the height for standalone mode
+      footerHeight = "h-20";
     }
   });
+
+  console.log("FOOTER THEME COLOR: ", $themeColor);
 </script>
 
 <footer
@@ -26,7 +33,7 @@
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800"
       >
         <svg
-          class="w-6 h-6 mb-1 text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class={`w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg`}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -42,7 +49,7 @@
           />
         </svg>
         <span
-          class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800 text-blue-600"
+          class={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
         >
           Memorize
         </span>
@@ -85,7 +92,7 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 mb-1 text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -101,7 +108,7 @@
           <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
         <span
-          class="text-xs text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="text-xs text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Read
         </span>
@@ -114,7 +121,7 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -130,7 +137,7 @@
           <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
         <span
-          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Read
         </span>
@@ -144,7 +151,7 @@
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800"
       >
         <svg
-          class="w-6 h-6 mb-1 text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -158,7 +165,7 @@
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
         </svg>
         <span
-          class="text-xs text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="text-xs text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Journal
         </span>
@@ -170,7 +177,7 @@
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
       >
         <svg
-          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -184,7 +191,7 @@
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
         </svg>
         <span
-          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class={`text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"`}
         >
           Journal
         </span>
@@ -198,7 +205,7 @@
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800"
       >
         <svg
-          class="w-6 h-6 mb-1 text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -216,7 +223,7 @@
           />
         </svg>
         <span
-          class="text-xs text-blue-600 dark:text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="text-xs text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Timeline
         </span>
@@ -228,7 +235,7 @@
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
       >
         <svg
-          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -246,7 +253,7 @@
           />
         </svg>
         <span
-          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500 md:text-lg"
+          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Timeline
         </span>

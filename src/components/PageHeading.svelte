@@ -8,7 +8,7 @@
     Radio,
     DropdownItem,
   } from "flowbite-svelte";
-  import { readingPlanSelected, weekNumberSelected } from "./store";
+  import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
 
   enum ValuesPipe {
     F260_NewTestament = "F260 New Testament",
@@ -58,14 +58,15 @@
       Week {weekNumber}
     </span> -->
     <Button class="pl-1" color="alternative" outline="none"
-      ><span class="text-lg lg:text-lg sm:px-0 xl:px-0 text-blue-400"
+      ><span
+        class={`text-lg lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
         >Week #{weekSelected}</span
       >
     </Button>
     <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
       <div slot="header" class="px-4 py-2">
         <span class="block text-sm text-gray-900 dark:text-white">
-          Select the week of the year. <br />Tap the blue text again to dismiss
+          Select your current week
         </span>
       </div>
       {#each Array.from({ length: 52 }, (_, i) => i + 1) as week}

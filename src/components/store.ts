@@ -4,4 +4,5 @@ const currentWeek = () => Math.ceil((new Date().getTime() - new Date(new Date().
 
 export const readingPlanSelected = writable("F260_NewTestament");
 export const weekNumberSelected = writable(currentWeek());
-export const selectedFontSyleForBibleText = writable("font-sans")
+export const selectedFontSyleForBibleText = writable("font-sans");
+export const themeColor = writable("blue")

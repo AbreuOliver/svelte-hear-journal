@@ -27,8 +27,30 @@
     readingPlanSelected,
     weekNumberSelected,
     selectedFontSyleForBibleText,
+    themeColor,
   } from "./store";
-  import PageHeading from "./PageHeading.svelte";
+  // import PageHeading from "./PageHeading.svelte";
+
+  const themeColors = [
+    "red",
+    // "orange",
+    // "amber",
+    "yellow",
+    // "lime",
+    "green",
+    // "emerald",
+    "teal",
+    // "cyan",
+    "blue",
+    // "indigo",
+    // "violet",
+    "purple",
+    // "fuchsia",
+    "pink",
+    // "rose",
+  ];
+
+  console.log("Theme Color: ", $themeColor);
 
   enum ValuesPipe {
     F260_NewTestament = "F260 New Testament",
@@ -41,21 +63,21 @@
 
   {
     $weekNumberSelected;
-  }
-  {
     $readingPlanSelected;
+    $themeColor;
   }
 
-  let planSelected = $readingPlanSelected;
   let weekSelected = $weekNumberSelected;
+  let themeColorSelected = $themeColor;
+
+  function updateThemeColor() {
+    themeColor.set(themeColorSelected);
+    console.log("THEME COLOR", themeColorSelected);
+  }
 
   function updateWeekNumber() {
     weekNumberSelected.set(weekSelected);
     console.log("WEEK NUMBER", weekSelected);
-  }
-
-  function updateReadingPlan() {
-    readingPlanSelected.set(planSelected);
   }
 
   console.log("WEEK NUMBER", weekSelected);
@@ -83,6 +105,20 @@
   } else {
     console.log("DARK MODE OFF");
     logo = lightLogo;
+  }
+
+  let logoSelected = localStorage.getItem("logo-theme") || "dark"; // Default value
+
+  $: {
+    if (logoSelected === "dark") {
+      logo = darkLogo;
+    } else {
+      logo = lightLogo;
+    }
+  }
+
+  function updateLogoTheme() {
+    localStorage.setItem("logo-theme", logoSelected);
   }
 </script>
 
@@ -139,18 +175,18 @@
           class="flex flex-col items-start w-full max-w-[700px] px-2 sm:px-4 py-2.5"
         >
           <div class="flex w-full items-center border-gray-100">
-            <h5
-              id="drawer-navigation-label-3"
-              class="ml-5 text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
-            >
-              Menu
-            </h5>
+            <NavBrand style="display: flex; flex-grow: 1;" href="/">
+              <img src={logo} class="mx-2 h-7 sm:h-9" alt="HEAR Journal Logo" />
+              <span
+                class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+                >Menu</span
+              >
+            </NavBrand>
             <CloseButton
               on:click={() => (drawer = true)}
               class="dark:text-white w-[50px] mr-0.5 text-center focus:ring-4 focus:outline-none inline-flex items-center justify-center py-2.5 dark:bg-transparent dark:border-gray-800 dark:hover:border-gray-700 rounded-lg"
             />
           </div>
-          <!-- <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" /> -->
           <hr
             class="h-px my-2 bg-gray-200 dark:bg-gray-700 w-[150vw] flex justify-center items-center ml-[-5rem]"
           />
@@ -162,63 +198,15 @@
                 <main class="w-full pb-[10rem]">
                   <Heading
                     tag="h2"
-                    class="my-4 text-left"
+                    class={`my-4 text-left text-${$themeColor}-600 dark:text-${$themeColor}-500`}
                     customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
                     >Settings</Heading
                   >
-                  <!-- <PageHeading headerText="Settings" /> -->
-                  <!-- <h5
-                    class="mt-2 mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                  >
-                    Content
-                  </h5>
-                  <Card
-                    class="max-w-full min-w-full shadow-none my-0 horizontal bg-gray-200 dark:bg-gray-700"
-                  >
-                    <div class="flex justify-end items-center my-1.5 border-0">
-                      <p
-                        class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
-                      >
-                        Week Number
-                      </p>
-                      <Button class="grow-1" color="alternative"
-                        ><Chevron>Week #{weekSelected}</Chevron></Button
-                      >
-                      <Dropdown
-                        placement="left"
-                        class="w-auto overflow-y-auto py-1 h-48"
-                      >
-                        <div slot="header" class="px-4 py-2">
-                          <span
-                            class="block text-sm text-gray-900 dark:text-white"
-                            >Select the week of the year</span
-                          >
-                        </div>
-                        {#each Array.from({ length: 50 }, (_, i) => i + 1) as week}
-                          <DropdownItem
-                            class="flex items-center text-base font-semibold gap-2"
-                          >
-                            <Radio
-                              name="group1"
-                              bind:group={weekSelected}
-                              value={week}
-                              on:change={updateWeekNumber}>Week {week}</Radio
-                            >
-                          </DropdownItem>
-                        {/each}
-                      </Dropdown>
-                    </div>
-                  </Card> -->
                   <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
-                  <!-- <h5
-                    class="mt-2 mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                  >
-                    Styling
-                  </h5> -->
                   <Card
                     class="max-w-full min-w-full shadow-none my-0 horizontal bg-gray-200 dark:bg-gray-700"
                   >
-                    <!-- ///////////////////////// -->
+                    <!--// SELECT LOGO // -->
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
@@ -226,58 +214,59 @@
                         Logo
                       </p>
                       <Button class="grow-1" color="alternative"
-                        ><Chevron>Dark Icon</Chevron></Button
+                        ><Chevron
+                          >{logoSelected === "dark" ? "Light" : "Dark"} Logo</Chevron
+                        ></Button
                       >
                       <Dropdown
-                        disabled="true"
                         placement="bottom"
                         class="w-auto overflow-y-auto py-1 min-h-full max-h-48"
                       >
                         <div slot="header" class="px-4 py-2">
                           <span
                             class="block text-sm text-gray-900 dark:text-white"
-                            >Select the week of the year</span
+                            >Select the logo theme</span
                           >
                         </div>
                         <DropdownItem
                           class="flex items-center text-base font-semibold gap-2"
                         >
                           <Radio
-                            name="BibleReadingPlanOptions"
-                            bind:group={planSelected}
-                            value={ValuesPipe.F260_NewTestament}
-                            on:change={updateReadingPlan}
+                            name="logoThemeOptions"
+                            bind:group={logoSelected}
+                            value="dark"
+                            on:change={updateLogoTheme}>Light Logo</Radio
                           >
-                            {applyValuesPipe("F260_NewTestament")}
-                          </Radio>
                         </DropdownItem>
                         <DropdownItem
                           class="flex items-center text-base font-semibold gap-2"
                         >
                           <Radio
-                            name="BibleReadingPlanOptions"
-                            bind:group={planSelected}
-                            value={ValuesPipe.F260_WholeBible}
-                            on:change={updateReadingPlan}
-                            class="disabled"
+                            name="logoThemeOptions"
+                            bind:group={logoSelected}
+                            value="light"
+                            on:change={updateLogoTheme}>Dark Logo</Radio
                           >
-                            {applyValuesPipe("F260_WholeBible")}
-                          </Radio>
                         </DropdownItem>
                       </Dropdown>
                     </div>
                     <hr
                       class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"
                     />
+                    <!--// SELECT ACCENT COLOR // -->
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
                       >
                         Accent Color
                       </p>
-                      <Button class="grow-1" color="alternative"
-                        ><Chevron>Tech Blue</Chevron></Button
-                      >
+                      <Button class="grow-1" color="alternative">
+                        <Chevron
+                          >{`${$themeColor
+                            .charAt(0)
+                            .toUpperCase()}${$themeColor.slice(1)}`}</Chevron
+                        >
+                      </Button>
                       <Dropdown
                         placement="left"
                         class="w-auto overflow-y-auto py-1 h-48"
@@ -285,18 +274,21 @@
                         <div slot="header" class="px-4 py-2">
                           <span
                             class="block text-sm text-gray-900 dark:text-white"
-                            >Select the week of the year</span
+                            >Select the accent color</span
                           >
                         </div>
-                        {#each Array.from({ length: 50 }, (_, i) => i + 1) as week}
+                        {#each themeColors as color}
                           <DropdownItem
                             class="flex items-center text-base font-semibold gap-2"
                           >
                             <Radio
-                              name="group1"
-                              bind:group={weekSelected}
-                              value={week}
-                              on:change={updateWeekNumber}>Week {week}</Radio
+                              name="themeColorOptions"
+                              bind:group={themeColorSelected}
+                              value={color}
+                              on:change={updateThemeColor}
+                              >{`${color.charAt(0).toUpperCase()}${color.slice(
+                                1
+                              )}`}</Radio
                             >
                           </DropdownItem>
                         {/each}
@@ -311,7 +303,7 @@
                       >
                         Bible Text Font
                       </p>
-                      <Button class="grow-1" color="alternative"
+                      <Button class="grow-1" color="alternative" disabled="true"
                         ><Chevron>Sans Serif</Chevron></Button
                       >
                       <Dropdown
@@ -347,7 +339,7 @@
                       >
                         Bible Translation
                       </p>
-                      <Button class="grow-1" color="alternative"
+                      <Button class="grow-1" color="alternative" disabled
                         ><Chevron>KJV</Chevron></Button
                       >
                       <Dropdown

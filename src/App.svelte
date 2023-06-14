@@ -10,7 +10,7 @@
     <Navbar />
 
     <div
-      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[80vh] max-w-full"
+      class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-[90vh] max-w-full"
     >
       <main
         class="flex flex-col items-center w-full overflow-scroll bg-gray-50 dark:bg-gray-900 min-h-full max-w-[700px]"
@@ -25,12 +25,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  :global(body) {
-    /* Prevent zooming */
-    touch-action: manipulation;
-    touch-action: pan-x pan-y;
-    height: 100%;
-  }
-</style>

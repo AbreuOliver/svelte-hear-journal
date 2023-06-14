@@ -2,7 +2,7 @@
   import axios from "axios";
   import { onMount } from "svelte";
   import { AccordionItem, Accordion, Modal } from "flowbite-svelte";
-  import { readingPlanSelected, weekNumberSelected } from "./store";
+  import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
   import PageHeading from "./PageHeading.svelte";
   import VerseReview from "./VerseReview.svelte";
   import * as readingPlanJSON from "../../readingPlans.json";
@@ -76,14 +76,14 @@
   <PageHeading headerText="Memory Verses" />
   <Accordion
     class="rounded-xl bg-white dark:bg-gray-800"
-    activeClasses="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
-    inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+    activeClasses={`rounded-t-xl bg-${$themeColor}-50 dark:bg-gray-800 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+    inactiveClasses={`text-gray-500 dark:text-gray-400 hover:bg-${$themeColor}-50 dark:hover:bg-gray-800`}
   >
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-t-lg  bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-xl  bg-${$themeColor}-50 text-${$themeColor}-600 dark:text-${$themeColor}-500 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
-      <span slot="header"
+      <span slot="header" class={`font-semibold`}
         >{readingPlanJSON[planSelected][weekNumber].memoryVerses}</span
       >
       {#if isMemoryVerseLoading}
