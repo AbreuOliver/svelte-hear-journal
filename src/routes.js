@@ -10,6 +10,7 @@ import Journal from "./components/Journal.svelte";
 import Settings from "./components/Settings.svelte";
 // @ts-ignore
 import Timeline from "./components/Timeline.svelte";
+import Copy from "./components/Copy.svelte";
 // @ts-ignore
 // import NotFound from "./components/NotFound.svelte";
 
@@ -21,5 +22,6 @@ export default {
   "/reading-plan": ReadingPlan,
   "/journal": Journal,
   "/settings": Settings,
-  "/timeline": Timeline
+  "/timeline": Timeline,
+  "/copy": Copy
 };
