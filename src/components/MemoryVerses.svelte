@@ -18,6 +18,20 @@
   let defaultModal = false;
   let isMemoryVerseLoading: boolean = false;
 
+  let weekNumber;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+    getMemoryVerse();
+  });
+
+  let planSelected;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+    getMemoryVerse();
+  });
+
+  console.log("READING PLAN SELECTED:", planSelected);
+
   onMount(() => {
     getMemoryVerse();
   });
@@ -38,8 +52,8 @@
       // console.log("Formatted Memory Verse Text: ", formattedMemoryVerseText);
       isMemoryVerseLoading = false;
     } catch (error) {
-      isMemoryVerseLoading = false;
       console.error("Error fetching Bible text:", error);
+      isMemoryVerseLoading = false;
     }
   }
 
@@ -55,20 +69,6 @@
   function showToast(message: string) {
     toastMessage = message;
   }
-
-  let weekNumber;
-  weekNumberSelected.subscribe((value) => {
-    weekNumber = value;
-    getMemoryVerse();
-  });
-
-  let planSelected;
-  readingPlanSelected.subscribe((value) => {
-    planSelected = value;
-    getMemoryVerse();
-  });
-
-  console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
 <main class="w-full px-5 pb-5">

@@ -64,8 +64,8 @@
       );
       isBibleReadingPlanLoading = false;
     } catch (error) {
-      isBibleReadingPlanLoading: false;
       console.error("Error fetching Bible text:", error);
+      isBibleReadingPlanLoading = false;
     }
   }
 
@@ -120,7 +120,7 @@
       class="rounded-xl"
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
-      <span slot="header" class={`text-${$themeColor}-500`}
+      <span slot="header"
         ><span class="text-gray-800 dark:text-gray-100">Day 1 • </span>
         {readingPlanJSON[planSelected][weekNumber].plan[0]}</span
       >

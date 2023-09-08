@@ -6,12 +6,12 @@ const CACHE_NAME = "static-cache-v1";
 // Add list of files to cache here.
 const FILES_TO_CACHE = [
   "/offline.html",
-  "src/components/PageHeading.svelte",
-  "src/components/MemoryVerses.svelte",
-  "src/components/ReadingPlan.svelte",
-  "src/components/Settings.svelte",
-  "src/components/Footer.svelte",
-  "/src/components/store.ts"
+  "../src/components/PageHeading.svelte",
+  "../src/components/MemoryVerses.svelte",
+  "../src/components/ReadingPlan.svelte",
+  "../src/components/Settings.svelte",
+  "../src/components/Footer.svelte",
+  "src/components/store.ts"
 ];
 
 self.addEventListener("install", (evt) => {
@@ -47,21 +47,32 @@ self.addEventListener("activate", (evt) => {
 });
 
 self.addEventListener("fetch", (evt) => {
-  // console.log("[ServiceWorker] Fetch", evt.request.url);
-  // Add fetch event handler here.
   if (evt.request.mode !== "navigate") {
     // Not a page navigation, bail.
     return;
   }
+
   evt.respondWith(
     fetch(evt.request).catch(() => {
       return caches.match(evt.request).then((response) => {
         if (response) {
+          console.log("[ServiceWorker] Serving response from cache:", response);
+          // Log specific values from the response
+          console.log("[ServiceWorker] Cached values:", response.yourValue);
           return response;
         }
 
         return caches.open(CACHE_NAME).then((cache) => {
-          return cache.match("offline.html");
+          return cache.match(evt.request).then((response) => {
+            if (response) {
+              console.log("[ServiceWorker] Serving response from cache:", response);
+              // Log specific values from the response
+              console.log("[ServiceWorker] Cached values:", response.yourValue);
+              return response;
+            }
+
+            return cache.match("offline.html");
+          });
         });
       });
     })

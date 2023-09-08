@@ -8,6 +8,7 @@
     Button,
     Modal,
   } from "flowbite-svelte";
+  import { themeColor } from "./store";
   import { onMount } from "svelte";
 
   let entries = [];
@@ -44,7 +45,7 @@
     {#if entries.length === 0}
       <p>
         Create and save your first entry on the <a
-          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          class={`font-medium text-${$themeColor}-600 dark:text-${$themeColor}-500 hover:underline`}
           href="#/journal">journal page</a
         >!&nbsp;🙂
       </p>

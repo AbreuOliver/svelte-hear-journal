@@ -14,7 +14,7 @@
     Button,
     Toast,
   } from "flowbite-svelte";
-  import { readingPlanSelected, weekNumberSelected } from "./store";
+  import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
   import PageHeading from "./PageHeading.svelte";
 
   let showToast = false;
@@ -162,7 +162,8 @@
     </P>
 
     <Button class="pl-2 ml-0" color="alternative" outline="none"
-      ><span class="text-lg lg:text-lg sm:px-0 xl:px-0 text-blue-400"
+      ><span
+        class={`text-lg lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600`}
         >Week #{weekSelected}</span
       >
     </Button>
