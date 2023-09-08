@@ -63,7 +63,7 @@
         >Week #{weekSelected}</span
       >
     </Button>
-    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
+    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
       <div slot="header" class="px-4 py-2">
         <span class="block text-sm text-gray-900 dark:text-white">
           Select your current week
@@ -73,7 +73,7 @@
         <DropdownItem
           class="flex w-full items-center text-base font-semibold gap-4 text-center {weekSelected ===
           week
-            ? 'bg-blue-100 text-blue-600'
+            ? `bg-${$themeColor}-100 text-${$themeColor}-600`
             : ''}"
           on:click={() => {
             weekSelected = week;

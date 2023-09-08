@@ -15,7 +15,7 @@
       windowVariable.standalone
     ) {
       displayMode = "standalone";
-      footerHeight = "h-20";
+      footerHeight = "h-18";
     }
   });
 

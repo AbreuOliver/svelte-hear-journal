@@ -1,7 +1,13 @@
 <script lang="ts">
   import axios from "axios";
   import { onMount } from "svelte";
-  import { AccordionItem, Accordion, Modal } from "flowbite-svelte";
+  import {
+    AccordionItem,
+    Accordion,
+    Modal,
+    Card,
+    Video,
+  } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
   import PageHeading from "./PageHeading.svelte";
   import VerseReview from "./VerseReview.svelte";
@@ -33,7 +39,7 @@
       isMemoryVerseLoading = false;
     } catch (error) {
       isMemoryVerseLoading = false;
-      console.error("Error fetching proverb text:", error);
+      console.error("Error fetching Bible text:", error);
     }
   }
 
@@ -106,4 +112,24 @@
     </AccordionItem>
   </Accordion>
   <!-- <VerseReview /> -->
+  <!-- <Card shadow={false} class="mt-4">
+    <Video
+      class="controls"
+      style="audio::-webkit-media-controls-panel: transparent;"
+      src="//samplelib.com/lib/preview/mp3/sample-3s.mp3"
+      controls="background: transparent;"
+      controlslist="nodownload"
+    />
+  </Card> -->
 </main>
+
+<!-- <style>
+  .controls {
+    background-color: #56aeff;
+  }
+
+  video::-webkit-media-controls-play-button {
+    background-color: red;
+    border-radius: 50%;
+  }
+</style> -->

@@ -6,6 +6,7 @@
     readingPlanSelected,
     weekNumberSelected,
     selectedFontSyleForBibleText,
+    themeColor,
   } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
   import PageHeading from "./PageHeading.svelte";
@@ -17,13 +18,20 @@
   let formattedBibleTextforPlanDay5: string[] = [];
   let toastMessage: string = "";
   let defaultModal = false;
+  let isBibleReadingPlanLoading: boolean = false;
 
   onMount(() => {
     getBibleTextForPlans();
   });
 
+  console.log(
+    "ReadingPlan.svelte: Loading Reading Plan: ",
+    isBibleReadingPlanLoading
+  );
+
   async function getBibleTextForPlans() {
     try {
+      isBibleReadingPlanLoading = true;
       const bibleTextforPlanDay1 = await axios.get(
         `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[0]}?translation=kjv`
       );
@@ -54,7 +62,9 @@
       formattedBibleTextforPlanDay5 = bibleTextforPlanDay5.data.verses.map(
         (verse: any) => verse.text.replace(/\n/g, " ")
       );
+      isBibleReadingPlanLoading = false;
     } catch (error) {
+      isBibleReadingPlanLoading: false;
       console.error("Error fetching Bible text:", error);
     }
   }
@@ -75,11 +85,13 @@
   let weekNumber;
   weekNumberSelected.subscribe((value) => {
     weekNumber = value;
+    getBibleTextForPlans();
   });
 
   let planSelected;
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
+    getBibleTextForPlans();
   });
 
   let bibleTextFontStyle;
@@ -101,29 +113,33 @@
   <PageHeading headerText="Bible Reading" />
   <Accordion
     class="rounded-xl bg-white dark:bg-gray-800"
-    activeClasses="bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
-    inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+    activeClasses={`bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+    inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
   >
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-none bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
-      <span slot="header"
+      <span slot="header" class={`text-${$themeColor}-500`}
         ><span class="text-gray-800 dark:text-gray-100">Day 1 • </span>
         {readingPlanJSON[planSelected][weekNumber].plan[0]}</span
       >
       <ol
         class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
       >
-        {#each formattedBibleTextforPlanDay1 as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400 {bibleTextFontStyle}"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
+        {#if isBibleReadingPlanLoading}
+          <p>Loading...</p>
+        {:else}
+          {#each formattedBibleTextforPlanDay1 as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400 {bibleTextFontStyle}"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        {/if}
       </ol>
     </AccordionItem>
     <AccordionItem
@@ -138,15 +154,19 @@
       <ol
         class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
       >
-        {#each formattedBibleTextforPlanDay2 as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
+        {#if isBibleReadingPlanLoading}
+          <p>Loading...</p>
+        {:else}
+          {#each formattedBibleTextforPlanDay2 as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        {/if}
       </ol>
     </AccordionItem>
     <AccordionItem
@@ -161,15 +181,19 @@
       <ol
         class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
       >
-        {#each formattedBibleTextforPlanDay3 as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
+        {#if isBibleReadingPlanLoading}
+          <p>Loading...</p>
+        {:else}
+          {#each formattedBibleTextforPlanDay3 as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        {/if}
       </ol>
     </AccordionItem>
     <AccordionItem
@@ -184,15 +208,19 @@
       <ol
         class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
       >
-        {#each formattedBibleTextforPlanDay4 as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
+        {#if isBibleReadingPlanLoading}
+          <p>Loading...</p>
+        {:else}
+          {#each formattedBibleTextforPlanDay4 as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        {/if}
       </ol>
     </AccordionItem>
     <AccordionItem
@@ -207,15 +235,19 @@
       <ol
         class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
       >
-        {#each formattedBibleTextforPlanDay5 as verse}
-          <li
-            class="mb-2 text-gray-500 dark:text-gray-400"
-            on:click={copyText}
-            on:keypress={copyText}
-          >
-            {verse}
-          </li>
-        {/each}
+        {#if isBibleReadingPlanLoading}
+          <p>Loading...</p>
+        {:else}
+          {#each formattedBibleTextforPlanDay5 as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        {/if}
       </ol>
     </AccordionItem>
   </Accordion>
