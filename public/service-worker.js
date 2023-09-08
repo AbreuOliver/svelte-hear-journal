@@ -4,14 +4,22 @@
 const CACHE_NAME = "static-cache-v1";
 
 // Add list of files to cache here.
-const FILES_TO_CACHE = ["/offline.html"];
+const FILES_TO_CACHE = [
+  "/offline.html",
+  "src/components/PageHeading.svelte",
+  "src/components/MemoryVerses.svelte",
+  "src/components/ReadingPlan.svelte",
+  "src/components/Settings.svelte",
+  "src/components/Footer.svelte",
+  "/src/components/store.ts"
+];
 
 self.addEventListener("install", (evt) => {
   console.log("[ServiceWorker] Install");
 
   evt.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("[ServiceWorker] Pre-caching offline page");
+      console.log("[ServiceWorker] Pre-caching offline page and Svelte store file");
       return cache.addAll(FILES_TO_CACHE);
     })
   );
@@ -47,8 +55,14 @@ self.addEventListener("fetch", (evt) => {
   }
   evt.respondWith(
     fetch(evt.request).catch(() => {
-      return caches.open(CACHE_NAME).then((cache) => {
-        return cache.match("offline.html");
+      return caches.match(evt.request).then((response) => {
+        if (response) {
+          return response;
+        }
+
+        return caches.open(CACHE_NAME).then((cache) => {
+          return cache.match("offline.html");
+        });
       });
     })
   );
