@@ -63,8 +63,8 @@
             title={entry.verse}
             date={new Date(entry.date).toLocaleDateString("en-US", {
               weekday: "short",
-              month: "numeric",
-              day: "numeric",
+              month: "2-digit",
+              day: "2-digit",
               year: "numeric",
             })}
           >
@@ -77,7 +77,7 @@
               color="light"
               on:click={() => (clickOutsideModal = true)}
               style="margin-right: .5rem;"
-              >View Image<svg
+              >View Details<svg
                 class="ml-2 w-3 h-3"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -88,7 +88,7 @@
                   clip-rule="evenodd"
                 /></svg
               ></Button
-            ><Button color="light">View Text</Button>
+            >
             <Modal
               title={entry.verse}
               bind:open={clickOutsideModal}
@@ -98,24 +98,19 @@
               <p
                 class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
               >
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
+                {entry.explanation}
               </p>
               <p
                 class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
               >
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
+                {entry.application}
               </p>
               <svelte:fragment slot="footer">
-                <Button on:click={() => alert('Handle "success"')}
-                  >I accept</Button
+                <Button
+                  style="background-color: {$themeColor}; color: white;"
+                  on:click={() => alert('Handle "success"')}>Close</Button
                 >
-                <Button color="alternative">Decline</Button>
+                <!-- <Button color="alternative">Decline</Button> -->
               </svelte:fragment>
             </Modal>
           </TimelineItem>

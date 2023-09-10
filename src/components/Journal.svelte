@@ -265,8 +265,10 @@
         {toastMessage}
       </Toast>
     {/if}
-    <Button class="min-w-[150px] mb-2" on:click={saveToTimeline}
-      >Save to Timeline</Button
+    <Button
+      class="min-w-[150px] mb-2"
+      style="background-color: {$themeColor}; color: white;"
+      on:click={saveToTimeline}>Save to Timeline</Button
     >
   </Card>
 </form>
