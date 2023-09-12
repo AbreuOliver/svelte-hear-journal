@@ -269,7 +269,7 @@
                       </Button>
                       <Dropdown
                         placement="left"
-                        class="w-auto overflow-y-auto py-1 h-48"
+                        class="w-auto overflow-y-auto py-1 h-60"
                       >
                         <div slot="header" class="px-4 py-2">
                           <span

@@ -48,7 +48,7 @@
   console.log("WEEK NUMBER", weekSelected);
 </script>
 
-<main class="w-full px-5 pb-[10rem]">
+<main class="w-full px-5 pb-[10rem]" style="z-index: 999;">
   <!-- <Heading
     tag="h2"
     class="mt-4 text-left mb-6"

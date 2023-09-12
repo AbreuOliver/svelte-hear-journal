@@ -29,6 +29,23 @@
     isBibleReadingPlanLoading
   );
 
+  let planSelected;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+    getBibleTextForPlans();
+  });
+
+  let weekNumber = undefined;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+    getBibleTextForPlans();
+  });
+
+  let bibleTextFontStyle;
+  selectedFontSyleForBibleText.subscribe((value) => {
+    bibleTextFontStyle = value;
+  });
+
   async function getBibleTextForPlans() {
     try {
       isBibleReadingPlanLoading = true;
@@ -82,23 +99,6 @@
     toastMessage = message;
   }
 
-  let weekNumber;
-  weekNumberSelected.subscribe((value) => {
-    weekNumber = value;
-    getBibleTextForPlans();
-  });
-
-  let planSelected;
-  readingPlanSelected.subscribe((value) => {
-    planSelected = value;
-    getBibleTextForPlans();
-  });
-
-  let bibleTextFontStyle;
-  selectedFontSyleForBibleText.subscribe((value) => {
-    bibleTextFontStyle = value;
-  });
-
   console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
@@ -144,7 +144,7 @@
     </AccordionItem>
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-none bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
         ><span class="text-gray-800 dark:text-gray-100"
@@ -171,7 +171,7 @@
     </AccordionItem>
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-none bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
         ><span class="text-gray-800 dark:text-gray-100"
@@ -198,7 +198,7 @@
     </AccordionItem>
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-none bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
         ><span class="text-gray-800 dark:text-gray-100"
@@ -225,7 +225,7 @@
     </AccordionItem>
     <AccordionItem
       class="rounded-xl"
-      activeClasses="rounded-none bg-blue-100 dark:bg-blue-700 text-blue-600 dark:text-white focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800"
+      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
         ><span class="text-gray-800 dark:text-gray-100"

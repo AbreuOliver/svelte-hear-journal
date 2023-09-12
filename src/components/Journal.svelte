@@ -42,14 +42,14 @@
   }
 
   function trigger() {
-    show = true;
+    const show = true;
     counter = 6;
     timeout();
   }
 
   function timeout() {
     if (--counter > 0) return setTimeout(timeout, 1000);
-    show = false;
+    const show = false;
   }
 
   let explanation = {
@@ -188,7 +188,7 @@
   </div>
   <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
 
-  <Card class="mb-20" style="max-width: 100%;">
+  <div class="mb-20" style="max-width: 100%;">
     <Heading
       tag="h4"
       class="my-3 text-left"
@@ -266,9 +266,9 @@
       </Toast>
     {/if}
     <Button
-      class="min-w-[150px] mb-2"
+      class="min-w-[150px] w-full mb-2"
       style="background-color: {$themeColor}; color: white;"
       on:click={saveToTimeline}>Save to Timeline</Button
     >
-  </Card>
+  </div>
 </form>
