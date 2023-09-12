@@ -121,7 +121,7 @@
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-100">Day 1 • </span>
+        ><span class="text-gray-800 dark:text-gray-600">Day 1 • </span>
         {readingPlanJSON[planSelected][weekNumber].plan[0]}</span
       >
       <ol
@@ -147,7 +147,7 @@
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-100"
+        ><span class="text-gray-800 dark:text-gray-600"
           >Day 2 •
         </span>{readingPlanJSON[planSelected][weekNumber].plan[1]}</span
       >
@@ -174,7 +174,7 @@
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-100"
+        ><span class="text-gray-800 dark:text-gray-600"
           >Day 3 •
         </span>{readingPlanJSON[planSelected][weekNumber].plan[2]}</span
       >
@@ -201,7 +201,7 @@
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-100"
+        ><span class="text-gray-800 dark:text-gray-600"
           >Day 4 •
         </span>{readingPlanJSON[planSelected][weekNumber].plan[3]}</span
       >
@@ -228,7 +228,7 @@
       activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-100"
+        ><span class="text-gray-800 dark:text-gray-600"
           >Day 5 •
         </span>{readingPlanJSON[planSelected][weekNumber].plan[4]}</span
       >
