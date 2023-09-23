@@ -8,7 +8,12 @@
     Card,
     Video,
   } from "flowbite-svelte";
-  import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
+  import {
+    readingPlanSelected,
+    weekNumberSelected,
+    selectedFontStyleForBibleText,
+    themeColor,
+  } from "./store";
   import PageHeading from "./PageHeading.svelte";
   import VerseReview from "./VerseReview.svelte";
   import * as readingPlanJSON from "../../readingPlans.json";
@@ -17,6 +22,11 @@
   let toastMessage: string = "";
   let defaultModal = false;
   let isMemoryVerseLoading: boolean = false;
+
+  let bibleTextFontStyle;
+  selectedFontStyleForBibleText.subscribe((value) => {
+    bibleTextFontStyle = value;
+  });
 
   let weekNumber;
   weekNumberSelected.subscribe((value) => {
@@ -96,7 +106,10 @@
         <p>Loading...</p>
       {:else}
         <ul
-          class="max-w-full space-y-1 text-gray-500 list-none list-inside dark:text-gray-400"
+          class="max-w-full space-y-1 text-gray-500 list-none list-inside dark:text-gray-400 {$selectedFontStyleForBibleText ===
+          'Serif'
+            ? 'font-serif'
+            : 'text-sans'}"
         >
           {#each formattedMemoryVerseText as verse}
             <li
