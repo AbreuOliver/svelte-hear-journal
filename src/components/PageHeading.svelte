@@ -60,13 +60,34 @@
         >Week #{weekSelected}</span
       >
     </Button>
-    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
+    <!-- <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
       <div slot="header" class="px-4 py-2">
         <span class="block text-sm text-gray-900 dark:text-white">
           Select your current week
         </span>
       </div>
       {#each Array.from({ length: 52 }, (_, i) => i + 1) as week}
+        <DropdownItem
+          class="flex w-full items-center text-base font-semibold gap-4 text-center {weekSelected ===
+          week
+            ? `bg-${$themeColor}-100 text-${$themeColor}-600`
+            : ''}"
+          on:click={() => {
+            weekSelected = week;
+            updateWeekNumber();
+          }}
+        >
+          <span class="grow-[1]">Week {week}</span>
+        </DropdownItem>
+      {/each}
+    </Dropdown> -->
+    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
+      <div slot="header" class="px-4 py-2">
+        <span class="block text-sm text-gray-900 dark:text-white">
+          Select your current week
+        </span>
+      </div>
+      {#each Array.from({ length: 52 }, (_, i) => ((i + weekNumber) % 52) + 1) as week}
         <DropdownItem
           class="flex w-full items-center text-base font-semibold gap-4 text-center {weekSelected ===
           week
