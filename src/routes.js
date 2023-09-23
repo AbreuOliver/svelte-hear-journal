@@ -7,7 +7,7 @@ import ReadingPlan from "./components/ReadingPlan.svelte";
 // @ts-ignore
 import Journal from "./components/Journal.svelte";
 // @ts-ignore
-import Settings from "./components/Settings.svelte";
+// import Settings from "./components/Settings.svelte";
 // @ts-ignore
 import Timeline from "./components/Timeline.svelte";
 import Copy from "./components/Copy.svelte";
@@ -21,7 +21,7 @@ export default {
   "/memory-verse": MemoryVerse,
   "/reading-plan": ReadingPlan,
   "/journal": Journal,
-  "/settings": Settings,
+  // "/settings": Settings,
   "/timeline": Timeline,
   "/copy": Copy
 };

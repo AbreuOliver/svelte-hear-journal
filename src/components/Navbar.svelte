@@ -26,7 +26,7 @@
   import {
     readingPlanSelected,
     weekNumberSelected,
-    selectedFontSyleForBibleText,
+    selectedFontStyleForBibleText,
     themeColor,
   } from "./store";
   // import PageHeading from "./PageHeading.svelte";
@@ -35,8 +35,8 @@
     "red",
     // "orange",
     // "amber",
-    "yellow",
-    // "lime",
+    // "yellow",
+    "lime",
     "green",
     // "emerald",
     "teal",
@@ -45,10 +45,21 @@
     // "indigo",
     // "violet",
     "purple",
-    // "fuchsia",
-    "pink",
-    // "rose",
+    "fuchsia",
+    // "pink",
+    "rose",
   ];
+
+  let fontStyleOptions = ["Serif", "Sans-Serif"];
+
+  let selectedFontStyle;
+  selectedFontStyleForBibleText.subscribe((value) => {
+    selectedFontStyle = value;
+  });
+
+  function updateFontStyle(fontStyle) {
+    selectedFontStyleForBibleText.set(fontStyle);
+  }
 
   console.log("Theme Color: ", $themeColor);
 
@@ -303,29 +314,30 @@
                       >
                         Bible Text Font
                       </p>
-                      <Button class="grow-1" color="alternative" disabled="true"
-                        ><Chevron>Sans Serif</Chevron></Button
-                      >
+                      <Button class="grow-1" color="alternative">
+                        <Chevron>{selectedFontStyle}</Chevron>
+                      </Button>
                       <Dropdown
                         placement="left"
-                        class="w-auto overflow-y-auto py-1 h-48"
+                        class="w-auto overflow-y-auto py-1 h-[fit-content]"
                       >
                         <div slot="header" class="px-4 py-2">
                           <span
                             class="block text-sm text-gray-900 dark:text-white"
-                            >Select the week of the year</span
+                            >Select Bible text font</span
                           >
                         </div>
-                        {#each Array.from({ length: 50 }, (_, i) => i + 1) as week}
+                        {#each fontStyleOptions as fontStyle}
                           <DropdownItem
-                            class="flex items-center text-base font-semibold gap-2"
+                            class="flex w-full items-center text-base font-semibold gap-4 text-center {selectedFontStyle ===
+                            fontStyle
+                              ? `bg-${$themeColor}-100 text-${$themeColor}-600`
+                              : ''}"
+                            on:click={() => {
+                              updateFontStyle(fontStyle);
+                            }}
                           >
-                            <Radio
-                              name="group1"
-                              bind:group={weekSelected}
-                              value={week}
-                              on:change={updateWeekNumber}>Week {week}</Radio
-                            >
+                            {fontStyle}
                           </DropdownItem>
                         {/each}
                       </Dropdown>

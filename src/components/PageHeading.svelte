@@ -53,10 +53,7 @@
     >{headerText}</Heading
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-    {applyValuesPipe("F260_NewTestament")} Plan •
-    <!-- <span class="text-yellow-400">
-      Week {weekNumber}
-    </span> -->
+    {applyValuesPipe("F260_NewTestament")} Plan &nbsp;•
     <Button class="pl-1" color="alternative" outline="none"
       ><span
         class={`text-lg lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600 dark:text-${$themeColor}-500`}

@@ -87,7 +87,7 @@
   >
     <AccordionItem
       class="rounded-xl"
-      activeClasses={`rounded-xl  bg-${$themeColor}-50 text-${$themeColor}-600 dark:text-${$themeColor}-500 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+      activeClasses={`rounded-xl bg-${$themeColor}-50 text-${$themeColor}-600 dark:text-${$themeColor}-500 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     >
       <span slot="header" class={`font-semibold`}
         >{readingPlanJSON[planSelected][weekNumber].memoryVerses}</span
@@ -122,14 +122,3 @@
     />
   </Card> -->
 </main>
-
-<!-- <style>
-  .controls {
-    background-color: #56aeff;
-  }
-
-  video::-webkit-media-controls-play-button {
-    background-color: red;
-    border-radius: 50%;
-  }
-</style> -->

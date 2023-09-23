@@ -5,17 +5,16 @@
   import {
     readingPlanSelected,
     weekNumberSelected,
-    selectedFontSyleForBibleText,
+    selectedFontStyleForBibleText,
     themeColor,
   } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
   import PageHeading from "./PageHeading.svelte";
 
-  let formattedBibleTextforPlanDay1: string[] = [];
-  let formattedBibleTextforPlanDay2: string[] = [];
-  let formattedBibleTextforPlanDay3: string[] = [];
-  let formattedBibleTextforPlanDay4: string[] = [];
-  let formattedBibleTextforPlanDay5: string[] = [];
+  const formattedBibleTextforPlanDay: string[][] = Array.from(
+    { length: 5 },
+    () => []
+  );
   let toastMessage: string = "";
   let defaultModal = false;
   let isBibleReadingPlanLoading: boolean = false;
@@ -42,43 +41,26 @@
   });
 
   let bibleTextFontStyle;
-  selectedFontSyleForBibleText.subscribe((value) => {
+  selectedFontStyleForBibleText.subscribe((value) => {
     bibleTextFontStyle = value;
   });
 
   async function getBibleTextForPlans() {
     try {
       isBibleReadingPlanLoading = true;
-      const bibleTextforPlanDay1 = await axios.get(
-        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[0]}?translation=kjv`
-      );
-      formattedBibleTextforPlanDay1 = bibleTextforPlanDay1.data.verses.map(
-        (verse: any) => verse.text.replace(/\n/g, " ")
-      );
-      const bibleTextforPlanDay2 = await axios.get(
-        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[1]}?translation=kjv`
-      );
-      formattedBibleTextforPlanDay2 = bibleTextforPlanDay2.data.verses.map(
-        (verse: any) => verse.text.replace(/\n/g, " ")
-      );
-      const bibleTextforPlanDay3 = await axios.get(
-        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[2]}?translation=kjv`
-      );
-      formattedBibleTextforPlanDay3 = bibleTextforPlanDay3.data.verses.map(
-        (verse: any) => verse.text.replace(/\n/g, " ")
-      );
-      const bibleTextforPlanDay4 = await axios.get(
-        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[3]}?translation=kjv`
-      );
-      formattedBibleTextforPlanDay4 = bibleTextforPlanDay4.data.verses.map(
-        (verse: any) => verse.text.replace(/\n/g, " ")
-      );
-      const bibleTextforPlanDay5 = await axios.get(
-        `https://bible-api.com/${readingPlanJSON[planSelected][weekNumber].plan[4]}?translation=kjv`
-      );
-      formattedBibleTextforPlanDay5 = bibleTextforPlanDay5.data.verses.map(
-        (verse: any) => verse.text.replace(/\n/g, " ")
-      );
+      const plan = readingPlanJSON[planSelected][weekNumber].plan;
+
+      const promises = plan.map(async (reference: string, i: number) => {
+        const response = await axios.get(
+          `https://bible-api.com/${reference}?translation=kjv`
+        );
+
+        formattedBibleTextforPlanDay[i] = response.data.verses.map(
+          (verse: any) => verse.text.replace(/\n/g, " ")
+        );
+      });
+
+      await Promise.all(promises);
       isBibleReadingPlanLoading = false;
     } catch (error) {
       console.error("Error fetching Bible text:", error);
@@ -114,141 +96,38 @@
   <Accordion
     class="rounded-xl bg-white dark:bg-gray-800"
     activeClasses={`bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    inactiveClasses="text-gray-500 dark:text-gray-400 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
+    inactiveClasses="text-gray-500 dark:text-gray-100 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
   >
-    <AccordionItem
-      class="rounded-xl"
-      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    >
-      <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-600">Day 1 • </span>
-        {readingPlanJSON[planSelected][weekNumber].plan[0]}</span
+    {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
+      <AccordionItem
+        class="rounded-xl"
+        activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
       >
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#if isBibleReadingPlanLoading}
-          <p>Loading...</p>
-        {:else}
-          {#each formattedBibleTextforPlanDay1 as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400 {bibleTextFontStyle}"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        {/if}
-      </ol>
-    </AccordionItem>
-    <AccordionItem
-      class="rounded-xl"
-      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    >
-      <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-600"
-          >Day 2 •
-        </span>{readingPlanJSON[planSelected][weekNumber].plan[1]}</span
-      >
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#if isBibleReadingPlanLoading}
-          <p>Loading...</p>
-        {:else}
-          {#each formattedBibleTextforPlanDay2 as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        {/if}
-      </ol>
-    </AccordionItem>
-    <AccordionItem
-      class="rounded-xl"
-      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    >
-      <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-600"
-          >Day 3 •
-        </span>{readingPlanJSON[planSelected][weekNumber].plan[2]}</span
-      >
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#if isBibleReadingPlanLoading}
-          <p>Loading...</p>
-        {:else}
-          {#each formattedBibleTextforPlanDay3 as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        {/if}
-      </ol>
-    </AccordionItem>
-    <AccordionItem
-      class="rounded-xl"
-      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    >
-      <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-600"
-          >Day 4 •
-        </span>{readingPlanJSON[planSelected][weekNumber].plan[3]}</span
-      >
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#if isBibleReadingPlanLoading}
-          <p>Loading...</p>
-        {:else}
-          {#each formattedBibleTextforPlanDay4 as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        {/if}
-      </ol>
-    </AccordionItem>
-    <AccordionItem
-      class="rounded-xl"
-      activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-gray-700 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    >
-      <span slot="header"
-        ><span class="text-gray-800 dark:text-gray-600"
-          >Day 5 •
-        </span>{readingPlanJSON[planSelected][weekNumber].plan[4]}</span
-      >
-      <ol
-        class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
-      >
-        {#if isBibleReadingPlanLoading}
-          <p>Loading...</p>
-        {:else}
-          {#each formattedBibleTextforPlanDay5 as verse}
-            <li
-              class="mb-2 text-gray-500 dark:text-gray-400"
-              on:click={copyText}
-              on:keypress={copyText}
-            >
-              {verse}
-            </li>
-          {/each}
-        {/if}
-      </ol>
-    </AccordionItem>
+        <span slot="header">
+          <span class="text-gray-800 dark:text-gray-400">Day {i + 1} • </span>
+          {reference}
+        </span>
+        <ol
+          class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+        >
+          {#if isBibleReadingPlanLoading}
+            <p>Loading...</p>
+          {:else}
+            {#each formattedBibleTextforPlanDay[i] as verse}
+              <li
+                class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                'Serif'
+                  ? 'font-serif'
+                  : 'text-sans'}"
+                on:click={copyText}
+                on:keypress={copyText}
+              >
+                {verse}
+              </li>
+            {/each}
+          {/if}
+        </ol>
+      </AccordionItem>
+    {/each}
   </Accordion>
 </main>

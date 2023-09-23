@@ -1,6 +1,5 @@
 import { writable } from "svelte/store";
 
-// const currentWeek = () => Math.ceil((new Date().getTime() - new Date(new Date().getFullYear(), 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
 
 export const readingPlanSelected = writable("F260_NewTestament");
 
@@ -29,15 +28,16 @@ weekNumberSelected.subscribe((value) => {
   localStorage.setItem("weekNumber", value.toString());
 });
 
-export const selectedFontSyleForBibleText = writable("font-sans");
+export const selectedFontStyleForBibleText = writable("Serif");
+
+
 
 // Function to retrieve the stored theme color from local storage (or use a default value if no theme color is found)
 const getStoredThemeColor = () => {
   const storedColor = localStorage.getItem("themeColor");
-  return storedColor ? storedColor : "blue"; // Use 'blue' as the default color if no theme color is found in local storage
+  return storedColor ? storedColor : "blue"; 
 };
 
-// Retrieve the theme color from local storage (or use a default value)
 const initialThemeColor = getStoredThemeColor();
 
 // Create the writable Svelte store for the theme color
@@ -47,5 +47,3 @@ export const themeColor = writable(initialThemeColor);
 themeColor.subscribe((value) => {
   localStorage.setItem("themeColor", value);
 });
-
-// export const themeColor = writable("blue")
