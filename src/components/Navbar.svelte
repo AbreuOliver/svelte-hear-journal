@@ -27,28 +27,24 @@
     readingPlanSelected,
     weekNumberSelected,
     selectedFontStyleForBibleText,
+    meetingDay,
     themeColor,
   } from "./store";
+  import VerticalDivider from "./VerticalDivider.svelte";
   // import PageHeading from "./PageHeading.svelte";
 
-  const themeColors = [
-    "red",
-    // "orange",
-    // "amber",
-    // "yellow",
-    "lime",
-    "green",
-    // "emerald",
-    "teal",
-    // "cyan",
-    "blue",
-    // "indigo",
-    // "violet",
-    "purple",
-    "fuchsia",
-    // "pink",
-    "rose",
-  ];
+  {
+    $weekNumberSelected;
+    $readingPlanSelected;
+    $themeColor;
+    $meetingDay;
+  }
+
+  let weekSelected = $weekNumberSelected;
+  let themeColorSelected = $themeColor;
+  let meetingDaySelected = $meetingDay;
+
+  const themeColors = ["red", "green", "teal", "blue", "purple"];
 
   let fontStyleOptions = ["Serif", "Sans-Serif"];
 
@@ -61,7 +57,22 @@
     selectedFontStyleForBibleText.set(fontStyle);
   }
 
-  console.log("Theme Color: ", $themeColor);
+  // console.log("Theme Color: ", $themeColor);
+
+  let possibleMeetingDays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  function updateMeetingDay() {
+    meetingDay.set(meetingDaySelected);
+    // console.log("SELECTED MEETING DAY", meetingDaySelected);
+  }
 
   enum ValuesPipe {
     F260_NewTestament = "F260 New Testament",
@@ -72,15 +83,6 @@
     return ValuesPipe[plan];
   }
 
-  {
-    $weekNumberSelected;
-    $readingPlanSelected;
-    $themeColor;
-  }
-
-  let weekSelected = $weekNumberSelected;
-  let themeColorSelected = $themeColor;
-
   function updateThemeColor() {
     themeColor.set(themeColorSelected);
     console.log("THEME COLOR", themeColorSelected);
@@ -88,10 +90,9 @@
 
   function updateWeekNumber() {
     weekNumberSelected.set(weekSelected);
-    console.log("WEEK NUMBER", weekSelected);
+    // console.log("WEEK NUMBER", weekSelected);
   }
 
-  console.log("WEEK NUMBER", weekSelected);
   let drawer = true;
   let backdrop = false;
   let spanClass = "flex-1 ml-3 whitespace-nowrap";
@@ -111,10 +112,10 @@
     (!("color-theme" in localStorage) &&
       window.matchMedia("(prefers-color-scheme: dark)").matches)
   ) {
-    console.log("DARK MODE ON");
+    // console.log("DARK MODE ON");
     logo = darkLogo;
   } else {
-    console.log("DARK MODE OFF");
+    // console.log("DARK MODE OFF");
     logo = lightLogo;
   }
 
@@ -131,6 +132,8 @@
   function updateLogoTheme() {
     localStorage.setItem("logo-theme", logoSelected);
   }
+
+  let dropdownOpen = false;
 </script>
 
 <nav
@@ -213,10 +216,47 @@
                     customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
                     >Settings</Heading
                   >
-                  <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                  <VerticalDivider />
                   <Card
                     class="max-w-full min-w-full shadow-none my-0 horizontal bg-gray-200 dark:bg-gray-700"
                   >
+                    <div class="flex justify-end items-center my-1.5 border-0">
+                      <p
+                        class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
+                      >
+                        Meeting Day
+                      </p>
+                      <Button class="grow-1" color="alternative">
+                        <Chevron>{meetingDaySelected}</Chevron>
+                      </Button>
+                      <Dropdown
+                        placement="bottom"
+                        class="w-22 overflow-y-auto py-1 h-[fit-content]"
+                      >
+                        <div slot="header" class="w-22 px-4 py-2">
+                          <span
+                            class="block text-sm text-gray-900 dark:text-white"
+                            >Select the day of the week on which you meet with
+                            your discipleship group</span
+                          >
+                        </div>
+                        {#each possibleMeetingDays as day}
+                          <DropdownItem
+                            class="flex w-full items-center text-base font-semibold gap-4 text-center {day ===
+                            meetingDaySelected
+                              ? `bg-${$themeColor}-100 text-${$themeColor}-600`
+                              : ''}"
+                            on:click={() => {
+                              meetingDaySelected = day;
+                              updateMeetingDay();
+                            }}
+                          >
+                            {day}
+                          </DropdownItem>
+                        {/each}
+                      </Dropdown>
+                    </div>
+                    <VerticalDivider />
                     <!--// SELECT LOGO // -->
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
@@ -261,9 +301,7 @@
                         </DropdownItem>
                       </Dropdown>
                     </div>
-                    <hr
-                      class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"
-                    />
+                    <VerticalDivider />
                     <!--// SELECT ACCENT COLOR // -->
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
@@ -305,9 +343,7 @@
                         {/each}
                       </Dropdown>
                     </div>
-                    <hr
-                      class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"
-                    />
+                    <VerticalDivider />
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
@@ -342,9 +378,7 @@
                         {/each}
                       </Dropdown>
                     </div>
-                    <hr
-                      class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"
-                    />
+                    <VerticalDivider />
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"

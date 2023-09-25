@@ -22,9 +22,7 @@
     const timelineData = localStorage.getItem("timeline");
     if (timelineData) {
       entries = JSON.parse(timelineData);
-      entries.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
+      entries.sort((a, b) => a.id - b.id);
     }
   }
 
@@ -37,7 +35,25 @@
   }
 
   function closeModal() {
+    selectedEntry = null;
     isModalOpen = false;
+  }
+
+  // function editEntry(entry) {
+  //   // Implement the logic to edit the entry here
+  //   console.log("Editing entry:", entry);
+  //   // Update the entry in the `entries` array or perform any other necessary action
+  //   closeModal();
+  // }
+
+  function deleteEntry(entry) {
+    // Implement the logic to delete the entry here
+    console.log("Deleting entry:", entry);
+
+    // Filter out the entry to be deleted from the `entries` array
+    entries = entries.filter((e) => e.id !== entry.id);
+
+    closeModal();
   }
 </script>
 
@@ -45,7 +61,7 @@
   <Heading
     tag="h2"
     class="my-4 text-left"
-    customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+    customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
   >
     Timeline
   </Heading>
@@ -53,12 +69,11 @@
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     View your past entries on this device
   </P>
-
   {#if entries.length === 0}
     <p>
       Create and save your first entry on the
       <a
-        class={`font-medium text-${themeColor}-600 dark:text-${themeColor}-500 hover:underline`}
+        class={`font-medium text-${$themeColor}-600 dark:text-${$themeColor}-500 hover:underline`}
         href="#/journal"
       >
         journal page
@@ -67,7 +82,7 @@
     </p>
   {:else}
     <Timeline>
-      {#each entries as entry (entry.date)}
+      {#each entries as entry (entry.id)}
         <TimelineItem
           title={entry.verse}
           date={new Date(entry.date).toLocaleDateString("en-US", {
@@ -88,52 +103,49 @@
             style="margin-right: .5rem;"
           >
             View Details
-            <svg
-              class="ml-2 w-3 h-3"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
           </Button>
         </TimelineItem>
-
-        {#if isModalOpen}
-          {#if selectedEntry === entry}
-            <Modal
-              title={entry.verse}
-              size="lg"
-              bind:open={isModalOpen}
-              autoclose
-              outsideclose
-            >
-              <p
-                class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-              >
-                {entry.explanation}
-              </p>
-              <p
-                class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-              >
-                {entry.application}
-              </p>
-              <svelte:fragment slot="footer">
-                <Button
-                  style="background-color: {$themeColor}; color: white;"
-                  on:click={closeModal}
-                >
-                  Close
-                </Button>
-              </svelte:fragment>
-            </Modal>
-          {/if}
-        {/if}
       {/each}
     </Timeline>
+
+    {#if isModalOpen}
+      {#if selectedEntry}
+        <Modal
+          title={selectedEntry.verse}
+          size="lg"
+          bind:open={isModalOpen}
+          autoclose
+          outsideclose
+          class="space-y-2"
+        >
+          <div>
+            <h2 class={`mb-1 font-semibold text-${$themeColor}-600`}>
+              Explanation
+            </h2>
+            <p
+              class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+            >
+              {selectedEntry.explanation}
+            </p>
+          </div>
+          <div>
+            <h2 class={`mb-1 font-semibold text-${$themeColor}-600`}>
+              Application
+            </h2>
+            <p
+              class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+            >
+              {selectedEntry.application}
+            </p>
+          </div>
+          <svelte:fragment slot="footer">
+            <Button color="alternative" on:click={closeModal}>Close</Button>
+            <Button color="red" on:click={() => deleteEntry(selectedEntry)}>
+              Delete Entry
+            </Button>
+          </svelte:fragment>
+        </Modal>
+      {/if}
+    {/if}
   {/if}
 </main>

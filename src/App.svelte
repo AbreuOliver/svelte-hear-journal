@@ -3,6 +3,7 @@
   import routes from "./routes";
   import Navbar from "./components/Navbar.svelte";
   import Footer from "./components/Footer.svelte";
+  import Banner from "./components/Banner.svelte";
 </script>
 
 <div class="w-full h-full">

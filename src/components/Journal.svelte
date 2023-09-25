@@ -111,6 +111,7 @@
 
     // Create a new object with the inputs and the current date
     const entry = {
+      id: generateUniqueId(),
       date: getCurrentDate(),
       verse: verseInput.value,
       explanation: explanationInput.value,
@@ -146,6 +147,11 @@
     if (event.key === "Enter") {
       saveToTimeline();
     }
+  }
+
+  function generateUniqueId() {
+    // Generates a random GUID
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
   }
 </script>
 
@@ -242,11 +248,13 @@
       <Textarea {...response} id="response" onkeydown={handleKeyDown} />
     </div>
     <hr class="my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+
+    <hr class="my-2 bg-gray-200 border-0 dark:bg-gray-700" />
     {#if warningMessage}
       <Helper class="mb-4 text-lg" color="red">{warningMessage}</Helper>
     {/if}
     {#if showToast}
-      <Toast color="green" simple>
+      <Toast color="green" position="bottom-right" simple style="">
         <svelte:fragment slot="icon">
           <svg
             aria-hidden="true"
@@ -254,21 +262,23 @@
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
-            ><path
+          >
+            <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
-            /></svg
-          >
+            />
+          </svg>
           <span class="sr-only">Check icon</span>
         </svelte:fragment>
         {toastMessage}
       </Toast>
     {/if}
     <Button
-      class="min-w-[150px] w-full mb-2"
-      style="background-color: {$themeColor}; color: white;"
-      on:click={saveToTimeline}>Save to Timeline</Button
+      class="min-w-[150px] w-full mb-2 bg-{$themeColor}-600 text-white"
+      on:click={saveToTimeline}
     >
+      Save to Timeline
+    </Button>
   </div>
 </form>

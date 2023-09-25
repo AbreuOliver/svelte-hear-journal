@@ -5,7 +5,7 @@ const CACHE_NAME = "static-cache-v1";
 
 // Add list of files to cache here.
 const FILES_TO_CACHE = [
-  "/offline.html",
+  "../public/offline.html",
   "../src/components/About.svelte",
   "../src/components/Copy.svelte",
   "../src/components/Navbar.svelte",
@@ -17,7 +17,7 @@ const FILES_TO_CACHE = [
   "../src/components/Settings.svelte",
   "../src/components/Footer.svelte",
   "../src/components/Timeline.svelte",
-  "src/components/store.ts"
+  "../src/components/store"
 ];
 
 self.addEventListener("install", (evt) => {

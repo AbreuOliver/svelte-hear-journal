@@ -39,10 +39,8 @@
 
   function updateWeekNumber() {
     weekNumberSelected.set(weekSelected);
-    console.log("WEEK NUMBER", weekSelected);
+    console.log("*** User selected week number: ", weekSelected);
   }
-
-  console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
 <main>

@@ -19,8 +19,19 @@
   let defaultModal = false;
   let isBibleReadingPlanLoading: boolean = false;
 
-  onMount(() => {
-    getBibleTextForPlans();
+  let weekNumber = undefined;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+  });
+
+  let planSelected;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+  });
+
+  let bibleTextFontStyle;
+  selectedFontStyleForBibleText.subscribe((value) => {
+    bibleTextFontStyle = value;
   });
 
   console.log(
@@ -28,22 +39,15 @@
     isBibleReadingPlanLoading
   );
 
-  let planSelected;
-  readingPlanSelected.subscribe((value) => {
-    planSelected = value;
+  onMount(() => {
     getBibleTextForPlans();
   });
 
-  let weekNumber = undefined;
-  weekNumberSelected.subscribe((value) => {
-    weekNumber = value;
-    getBibleTextForPlans();
-  });
-
-  let bibleTextFontStyle;
-  selectedFontStyleForBibleText.subscribe((value) => {
-    bibleTextFontStyle = value;
-  });
+  $: {
+    if (planSelected !== undefined && weekNumber !== undefined) {
+      getBibleTextForPlans();
+    }
+  }
 
   async function getBibleTextForPlans() {
     try {

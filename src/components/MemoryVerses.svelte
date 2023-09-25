@@ -15,7 +15,7 @@
     themeColor,
   } from "./store";
   import PageHeading from "./PageHeading.svelte";
-  import VerseReview from "./VerseReview.svelte";
+  // import VerseReview from "./VerseReview.svelte";
   import * as readingPlanJSON from "../../readingPlans.json";
 
   let formattedMemoryVerseText: string[] = [];
@@ -28,25 +28,27 @@
     bibleTextFontStyle = value;
   });
 
-  let weekNumber;
-  weekNumberSelected.subscribe((value) => {
-    weekNumber = value;
-    getMemoryVerse();
-  });
+  console.log("FROM STORE: ", $readingPlanSelected);
 
   let planSelected;
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
-    getMemoryVerse();
   });
 
-  console.log("READING PLAN SELECTED:", planSelected);
+  let weekNumber;
+  weekNumberSelected.subscribe((value) => {
+    weekNumber = value;
+  });
 
   onMount(() => {
     getMemoryVerse();
   });
 
-  console.log("FROM STORE: ", $readingPlanSelected);
+  $: {
+    if (planSelected !== undefined && weekNumber !== undefined) {
+      getMemoryVerse();
+    }
+  }
 
   async function getMemoryVerse() {
     try {
@@ -59,7 +61,6 @@
         (verse: any) => verse.text.replace(/\n/g, " ")
       );
 
-      // console.log("Formatted Memory Verse Text: ", formattedMemoryVerseText);
       isMemoryVerseLoading = false;
     } catch (error) {
       console.error("Error fetching Bible text:", error);

@@ -3,23 +3,6 @@
   import { themeColor } from "./store";
 
   let footerHeight = "h-16";
-
-  let windowVariable: any;
-
-  windowVariable = window.navigator;
-
-  window.addEventListener("DOMContentLoaded", () => {
-    let displayMode = "browser tab";
-    if (
-      windowVariable.matchMedia("(display-mode: standalone)").matches ||
-      windowVariable.standalone
-    ) {
-      displayMode = "standalone";
-      footerHeight = "h-18";
-    }
-  });
-
-  console.log("FOOTER THEME COLOR: ", $themeColor);
 </script>
 
 <footer
