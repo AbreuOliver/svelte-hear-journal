@@ -278,7 +278,8 @@
       </Toast>
     {/if}
     <Button
-      class="min-w-[150px] w-full mb-2 bg-{$themeColor}-600 text-white"
+      class="min-w-[150px] w-full h-11 mb-2 text-white"
+      style="background-color: {$themeColor};"
       on:click={saveToTimeline}
     >
       Save to Timeline

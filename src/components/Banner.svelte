@@ -6,7 +6,7 @@
     localStorage.setItem("bannerDismissed", "true");
   }
 
-  let updateText: string = `You can now set your meeting day in the settings panel!`;
+  let updateText: string = `You can now set your meeting day in the settings panel. The week numbers will automatically update the day after your selected meeting day!`;
 </script>
 
 {#if !$bannerDismissed}
@@ -38,7 +38,7 @@
       </p>
       <p class="text-gray-600 dark:text-white text-sm">
         <span class={`font-semibold text-${$themeColor}-600 dark:text-gray-400`}
-          >Update:</span
+          >New:</span
         >
         {updateText}
       </p>
