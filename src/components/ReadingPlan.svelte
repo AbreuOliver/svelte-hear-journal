@@ -85,7 +85,7 @@
     toastMessage = message;
   }
 
-  console.log("READING PLAN SELECTED:", planSelected);
+  // console.log("READING PLAN SELECTED:", planSelected);
 </script>
 
 <main class="w-full px-5 pb-[5rem]">

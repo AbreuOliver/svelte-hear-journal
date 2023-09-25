@@ -63,3 +63,24 @@ export const themeColor = writable(initialThemeColor);
 themeColor.subscribe((value) => {
   localStorage.setItem("themeColor", value.toString());
 });
+
+// ==================================================
+const currentAppVersionNumber = "1.0";
+
+const storedVersionNumber = localStorage.getItem("versionNumber") || currentAppVersionNumber;
+
+// Get the stored dismissal status from localStorage or use false as the initial value
+const initialBannerDismissed = localStorage.getItem("bannerDismissed") === "true" && storedVersionNumber === currentAppVersionNumber;
+
+export const bannerDismissed = writable(initialBannerDismissed);
+
+bannerDismissed.subscribe($bannerDismissed => {
+  console.log('Banner Dismissed:', $bannerDismissed);
+});
+
+// Check if the stored version number is different from the initial version number
+if (storedVersionNumber !== currentAppVersionNumber) {
+  bannerDismissed.set(false); // Reset the banner dismissal status to false for new updates
+  localStorage.setItem("bannerDismissed", "false"); // Update the stored dismissal status in localStorage
+  localStorage.setItem("versionNumber", currentAppVersionNumber); // Update the stored version number in localStorage
+}

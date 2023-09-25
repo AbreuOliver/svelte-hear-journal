@@ -137,7 +137,8 @@
 </script>
 
 <nav
-  class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray0100 dark:border-gray-800 w-full flex items-center justify-center border-b z-100 sticky top-0 left-0 md:h-[5rem]"
+  class="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray dark:border-gray-800 w-full flex items-center justify-center border-b sticky top-0 left-0 md:h-[5rem]"
+  style="z-index: 100;"
 >
   <Navbar
     navClass="flex items-center w-full max-w-[700px] px-4 py-2.5"

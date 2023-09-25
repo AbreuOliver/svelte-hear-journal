@@ -6,7 +6,7 @@
 </script>
 
 <footer
-  class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]`}
+  class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white border-top dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]`}
 >
   <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
     {#if $location === "/memory-verse"}

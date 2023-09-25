@@ -15,7 +15,7 @@
     Toast,
   } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
-  import PageHeading from "./PageHeading.svelte";
+  // import PageHeading from "./PageHeading.svelte";
 
   let showToast = false;
   let toastMessage = "Journal entry saved 🎉";
@@ -150,8 +150,16 @@
   }
 
   function generateUniqueId() {
-    // Generates a random GUID
-    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+    const now = new Date();
+    const year = now.getFullYear().toString().padStart(4, "0");
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    const hour = now.getHours().toString().padStart(2, "0");
+    const minute = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const milliseconds = now.getMilliseconds().toString().padStart(3, "0");
+
+    return `${year}${month}${day}${hour}${minute}${seconds}${milliseconds}`;
   }
 </script>
 
@@ -163,16 +171,6 @@
     >Journal</Heading
   >
   <div class="flex justify-start items-center">
-    <P class="mb-0 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-      Thoughts for:
-    </P>
-
-    <Button class="pl-2 ml-0" color="alternative" outline="none"
-      ><span
-        class={`text-lg lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600`}
-        >Week #{weekSelected}</span
-      >
-    </Button>
     <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
       <div slot="header" class="px-4 py-2">
         <span class="block text-sm text-gray-900 dark:text-white"
@@ -254,7 +252,12 @@
       <Helper class="mb-4 text-lg" color="red">{warningMessage}</Helper>
     {/if}
     {#if showToast}
-      <Toast color="green" position="bottom-right" simple style="">
+      <Toast
+        color="green"
+        position="bottom-right"
+        simple
+        style="margin-bottom: 5rem;"
+      >
         <svelte:fragment slot="icon">
           <svg
             aria-hidden="true"
