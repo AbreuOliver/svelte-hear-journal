@@ -65,7 +65,7 @@ themeColor.subscribe((value) => {
 });
 
 // ==================================================
-const currentAppVersionNumber = "1.0";
+const currentAppVersionNumber = "1.1";
 
 const storedVersionNumber = localStorage.getItem("versionNumber") || currentAppVersionNumber;
 

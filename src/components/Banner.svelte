@@ -6,7 +6,7 @@
     localStorage.setItem("bannerDismissed", "true");
   }
 
-  let updateText: string = `You can now set your meeting day in the settings panel. The week numbers will automatically update the day after your selected meeting day!`;
+  let updateText: string = `You can now use dynamic deep links to open the day's reading in the YouVersion Bible app`;
 </script>
 
 {#if !$bannerDismissed}
@@ -37,7 +37,8 @@
         </span>
       </p>
       <p class="text-gray-600 dark:text-white text-sm">
-        <span class={`font-semibold text-${$themeColor}-600 dark:text-gray-400`}
+        <span
+          class={`font-semibold text-${$themeColor}-600 dark:text-yellow-400`}
           >New:</span
         >
         {updateText}

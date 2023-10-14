@@ -167,36 +167,17 @@
   <Heading
     tag="h2"
     class="my-4 text-left"
-    customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+    customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
     >Journal</Heading
   >
-  <div class="flex justify-start items-center">
-    <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-48">
-      <div slot="header" class="px-4 py-2">
-        <span class="block text-sm text-gray-900 dark:text-white"
-          >Select the week of the year. <br />Tap the blue text again to close</span
-        >
-      </div>
-      {#each Array.from({ length: 52 }, (_, i) => i + 1) as week}
-        <DropdownItem class="flex items-center text-base font-semibold gap-2">
-          <span class="w-full p-[.125rem]">Week {week}</span><Radio
-            class="p-4"
-            name="group1"
-            bind:group={weekSelected}
-            value={week}
-            on:change={updateWeekNumber}
-          />
-        </DropdownItem>
-      {/each}
-    </Dropdown>
-  </div>
-  <hr class=" mb-4 bg-gray-200 border-0 dark:bg-gray-700" />
 
-  <div class="mb-20" style="max-width: 100%;">
+  <hr class=" mb-4 bg-gray-200 border-1 dark:bg-gray-700" />
+
+  <div class="mb-20 text-{$themeColor}-600" style="max-width: 100%;">
     <Heading
       tag="h4"
-      class="my-3 text-left"
-      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      class="my-3 text-left text-{$themeColor}-600 dark:text-{$themeColor}-700"
+      customSize="text-3xl font-extrabold md:text-4xl lg:text-5xl"
       >Highlight</Heading
     >
     <div class="mb-2">

@@ -62,6 +62,7 @@
   >
     Timeline
   </Heading>
+  <hr class=" mb-4 bg-gray-200 border-1 dark:bg-gray-700" />
 
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     View your past entries on this device

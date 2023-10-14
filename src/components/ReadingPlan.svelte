@@ -10,6 +10,7 @@
   } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
   import PageHeading from "./PageHeading.svelte";
+  import { reference } from "@popperjs/core";
 
   const formattedBibleTextforPlanDay: string[][] = Array.from(
     { length: 5 },
@@ -39,8 +40,11 @@
     isBibleReadingPlanLoading
   );
 
+  let isToggled: boolean = false;
+
   onMount(() => {
     getBibleTextForPlans();
+    isToggled = false;
   });
 
   $: {
@@ -85,7 +89,109 @@
     toastMessage = message;
   }
 
-  // console.log("READING PLAN SELECTED:", planSelected);
+  function activateToggle(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    isToggled = !isToggled;
+    console.log("Clicked toggle!", isToggled);
+  }
+
+  function convertToBibleLink(bookReference: string): string {
+    const abbreviations: { [key: string]: string } = {
+      Genesis: "gen",
+      Exodus: "exo",
+      Leviticus: "lev",
+      Numbers: "num",
+      Deuteronomy: "deu",
+      Joshua: "jos",
+      Judges: "jdg",
+      Ruth: "rut",
+      "1 Samuel": "1sa",
+      "2 Samuel": "2sa",
+      "1 Kings": "1ki",
+      "2 Kings": "2ki",
+      "1 Chronicles": "1ch",
+      "2 Chronicles": "2ch",
+      Ezra: "ezr",
+      Nehemiah: "neh",
+      Esther: "est",
+      Job: "job",
+      Psalm: "psa",
+      Proverbs: "pro",
+      Ecclesiastes: "ecc",
+      "Song of Solomon": "sng",
+      Isaiah: "isa",
+      Jeremiah: "jer",
+      Lamentations: "lam",
+      Ezekiel: "ezk",
+      Daniel: "dan",
+      Hosea: "hos",
+      Joel: "jol",
+      Amos: "amo",
+      Obadiah: "oba",
+      Jonah: "jon",
+      Micah: "mic",
+      Nahum: "nam",
+      Habakkuk: "hab",
+      Zephaniah: "zep",
+      Haggai: "hag",
+      Zechariah: "zec",
+      Malachi: "mal",
+      Matthew: "mat",
+      Mark: "mrk",
+      Luke: "luk",
+      John: "jhn",
+      Acts: "act",
+      Romans: "rom",
+      "1 Corinthians": "1co",
+      "2 Corinthians": "2co",
+      Galatians: "gal",
+      Ephesians: "eph",
+      Philippians: "php",
+      Colossians: "col",
+      "1 Thessalonians": "1th",
+      "2 Thessalonians": "2th",
+      "1 Timothy": "1ti",
+      "2 Timothy": "2ti",
+      Titus: "tit",
+      Philemon: "phm",
+      Hebrews: "heb",
+      James: "jas",
+      "1 Peter": "1pe",
+      "2 Peter": "2pe",
+      "1 John": "1jn",
+      "2 John": "2jn",
+      "3 John": "3jn",
+      Jude: "jud",
+      Revelation: "rev",
+    };
+
+    const bookMatch = bookReference.match(/(.+?)\s+(\d+)/);
+    const book = bookMatch && bookMatch[1].trim();
+    const chapterMatch = bookMatch && bookMatch[2].match(/(\d+)/);
+    const chapter = chapterMatch ? chapterMatch[0] : "1";
+
+    const bookAbbrev = abbreviations[book];
+
+    console.log(
+      "Book Reference: ",
+      bookReference,
+      "\nAbbreviation: ",
+      bookAbbrev,
+      "\nInput: ",
+      bookReference,
+      "\nBook: ",
+      book,
+      "\nChapter: ",
+      chapter,
+      "\nURL: ",
+      `${bookAbbrev}.${chapter}`
+    );
+
+    return bookAbbrev
+      ? `https://www.bible.com/bible/1/${bookAbbrev}.${chapter}.KJV`
+      : "Book abbreviation not found.";
+  }
 </script>
 
 <main class="w-full px-5 pb-[5rem]">
@@ -97,41 +203,172 @@
     </Modal>
   {/if}
   <PageHeading headerText="Bible Reading" />
-  <Accordion
-    class="rounded-xl bg-white dark:bg-gray-800"
-    activeClasses={`bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-    inactiveClasses="text-gray-500 dark:text-gray-100 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
-  >
-    {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
-      <AccordionItem
-        class="rounded-xl"
-        activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+  <div class="w-full flex justify-end">
+    <label
+      class="relative inline-flex items-center cursor-pointer mb-6"
+      on:click={activateToggle}
+      on:keydown={activateToggle}
+    >
+      <input
+        type="checkbox"
+        value=""
+        class="sr-only peer"
+        bind:checked={isToggled}
+      />
+      <div
+        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-{$themeColor}-300 dark:peer-focus:ring-{$themeColor}-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-{$themeColor}-600"
+      />
+      <span
+        class="ml-3 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
       >
-        <span slot="header">
-          <span class="text-gray-800 dark:text-gray-400">Day {i + 1} • </span>
-          {reference}
-        </span>
-        <ol
-          class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+        Read in YouVersion
+      </span>
+    </label>
+  </div>
+  {#if !isToggled}
+    <Accordion
+      class="rounded-xl bg-white dark:bg-gray-800"
+      activeClasses={`bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+      inactiveClasses="text-gray-500 dark:text-gray-100 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
+    >
+      {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
+        <AccordionItem
+          class="rounded-xl"
+          activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
         >
-          {#if isBibleReadingPlanLoading}
-            <p>Loading...</p>
+          <span slot="header">
+            <span class="text-gray-800 dark:text-gray-400">Day {i + 1} • </span>
+            {reference}
+          </span>
+          <ol
+            class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+          >
+            {#if isBibleReadingPlanLoading}
+              <p>Loading...</p>
+            {:else}
+              {#each formattedBibleTextforPlanDay[i] as verse}
+                <li
+                  class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                  'Serif'
+                    ? 'font-serif'
+                    : 'text-sans'}"
+                  on:click={copyText}
+                  on:keypress={copyText}
+                >
+                  {verse}
+                </li>
+              {/each}
+            {/if}
+          </ol>
+        </AccordionItem>
+      {/each}
+    </Accordion>
+  {:else}
+    <p
+      class="ml-3 mb-6 text-sm font-medium text-{$themeColor}-600 dark:text-{$themeColor}-600"
+    >
+      Tap the day's reference to open
+    </p>
+    <div
+      id="accordion-collapse"
+      class={`rounded-xl bg-white dark:bg-gray-800 bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+      data-accordion="collapse"
+    >
+      <h2 id="accordion-collapse-heading-1">
+        {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
+          {#if i === 0}
+            <button
+              type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-xl"
+              data-accordion-target="#accordion-collapse-body-1"
+              aria-expanded="true"
+              aria-controls="accordion-collapse-body-1"
+            >
+              <a href={convertToBibleLink(reference)}>
+                <span class="flex items-center justify-center">
+                  <span class="text-gray-800 dark:text-gray-400 mr-2"
+                    >Day {i + 1} •
+                  </span>
+                  {reference}
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#757c89"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+                  >
+                </span>
+              </a>
+            </button>
+          {:else if i === 4}
+            <button
+              type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-b-xl"
+              data-accordion-target="#accordion-collapse-body-1"
+              aria-expanded="true"
+              aria-controls="accordion-collapse-body-1"
+            >
+              <a href={convertToBibleLink(reference)}>
+                <span class="flex items-center justify-center">
+                  <span class="text-gray-800 dark:text-gray-400 mr-2"
+                    >Day {i + 1} •
+                  </span>
+                  {reference}
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#757c89"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+                  >
+                </span>
+              </a>
+            </button>
           {:else}
-            {#each formattedBibleTextforPlanDay[i] as verse}
-              <li
-                class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
-                'Serif'
-                  ? 'font-serif'
-                  : 'text-sans'}"
-                on:click={copyText}
-                on:keypress={copyText}
-              >
-                {verse}
-              </li>
-            {/each}
+            <button
+              type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-accordion-target="#accordion-collapse-body-1"
+              aria-expanded="true"
+              aria-controls="accordion-collapse-body-1"
+            >
+              <a href={convertToBibleLink(reference)}>
+                <span class="flex items-center justify-center">
+                  <span class="text-gray-800 dark:text-gray-400 mr-2"
+                    >Day {i + 1} •
+                  </span>
+                  {reference}
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#757c89"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+                  >
+                </span>
+              </a>
+            </button>
           {/if}
-        </ol>
-      </AccordionItem>
-    {/each}
-  </Accordion>
+        {/each}
+      </h2>
+    </div>
+  {/if}
 </main>
