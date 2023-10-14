@@ -166,10 +166,9 @@
       Revelation: "rev",
     };
 
-    const bookMatch = bookReference.match(/(.+?)\s+(\d+)/);
+    const bookMatch = bookReference.match(/(.+?)(?:\s+(\d+))?$/);
     const book = bookMatch && bookMatch[1].trim();
-    const chapterMatch = bookMatch && bookMatch[2].match(/(\d+)/);
-    const chapter = chapterMatch ? chapterMatch[0] : "1";
+    const chapter = bookMatch && bookMatch[2] ? bookMatch[2] : "1";
 
     const bookAbbrev = abbreviations[book];
 
