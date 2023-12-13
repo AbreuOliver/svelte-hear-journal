@@ -16,6 +16,11 @@
     { length: 5 },
     () => []
   );
+  // const formattedBibleTextforPlanDay: string[][] = Array.from(
+  //   { length: 10 },
+  //   () => []
+  // );
+
   let toastMessage: string = "";
   let defaultModal = false;
   let isBibleReadingPlanLoading: boolean = false;
@@ -75,6 +80,38 @@
       isBibleReadingPlanLoading = false;
     }
   }
+  // async function getBibleTextForPlans() {
+  //   try {
+  //     isBibleReadingPlanLoading = true;
+  //     const plan = readingPlanJSON[planSelected][weekNumber].plan;
+
+  //     const promises = plan.map(async (references: string[], i: number) => {
+  //       const versePromises = references.map(async (reference: string) => {
+  //         const response = await axios.get(
+  //           `https://bible-api.com/${reference}?translation=kjv`
+  //         );
+
+  //         return response.data.verses.map((verse: any) =>
+  //           verse.text.replace(/\n/g, " ")
+  //         );
+  //       });
+
+  //       const verses = await Promise.all(versePromises);
+  //       formattedBibleTextforPlanDay[i] = verses.reduce(
+  //         (acc: string[], verse: string[]) => {
+  //           return acc.concat(verse);
+  //         },
+  //         []
+  //       );
+  //     });
+
+  //     await Promise.all(promises);
+  //     isBibleReadingPlanLoading = false;
+  //   } catch (error) {
+  //     console.error("Error fetching Bible text:", error);
+  //     isBibleReadingPlanLoading = false;
+  //   }
+  // }
 
   function copyText(event: Event) {
     const target = event.target as HTMLElement;
@@ -191,6 +228,10 @@
       ? `https://www.bible.com/bible/1/${bookAbbrev}.${chapter}.KJV`
       : "Book abbreviation not found.";
   }
+  console.log(
+    "😜 Number of plan references: ",
+    readingPlanJSON[planSelected][weekNumber].plan.length
+  );
 </script>
 
 <main class="w-full px-5 pb-[5rem]">
@@ -231,35 +272,169 @@
       inactiveClasses="text-gray-500 dark:text-gray-100 hover:bg-${$themeColor}-100 dark:hover:bg-gray-800"
     >
       {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
-        <AccordionItem
-          class="rounded-xl"
-          activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
-        >
-          <span slot="header">
-            <span class="text-gray-800 dark:text-gray-400">Day {i + 1} • </span>
-            {reference}
-          </span>
-          <ol
-            class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+        {#if readingPlanJSON[planSelected][weekNumber].plan.length < 10}
+          <AccordionItem
+            class="rounded-xl"
+            activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
           >
-            {#if isBibleReadingPlanLoading}
-              <p>Loading...</p>
-            {:else}
-              {#each formattedBibleTextforPlanDay[i] as verse}
-                <li
-                  class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
-                  'Serif'
-                    ? 'font-serif'
-                    : 'text-sans'}"
-                  on:click={copyText}
-                  on:keypress={copyText}
-                >
-                  {verse}
-                </li>
-              {/each}
-            {/if}
-          </ol>
-        </AccordionItem>
+            <span slot="header">
+              <span class="text-gray-800 dark:text-gray-400"
+                >Day {i + 1} •
+              </span>
+              {reference}
+            </span>
+            <ol
+              class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+            >
+              {#if isBibleReadingPlanLoading}
+                <p>Loading...</p>
+              {:else}
+                {#each formattedBibleTextforPlanDay[i] as verse}
+                  <li
+                    class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                    'Serif'
+                      ? 'font-serif'
+                      : 'text-sans'}"
+                    on:click={copyText}
+                    on:keypress={copyText}
+                  >
+                    {verse}
+                  </li>
+                {/each}
+              {/if}
+            </ol>
+          </AccordionItem>
+        {:else if i % 2 === 0}
+          {#if i === 0}
+            <AccordionItem
+              class="rounded-xl"
+              activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+            >
+              <span slot="header">
+                <span class="text-gray-800 dark:text-gray-400">
+                  Day {Math.floor(i / 2) + 1}A •
+                </span>
+                {reference}
+              </span>
+              <ol
+                class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+              >
+                {#if isBibleReadingPlanLoading}
+                  <p>Loading...</p>
+                {:else}
+                  {#each formattedBibleTextforPlanDay[i] as verse}
+                    <li
+                      class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                      'Serif'
+                        ? 'font-serif'
+                        : 'text-sans'}"
+                      on:click={copyText}
+                      on:keypress={copyText}
+                    >
+                      {verse}
+                    </li>
+                  {/each}
+                {/if}
+              </ol>
+            </AccordionItem>
+          {:else if i === 9}
+            <AccordionItem
+              class="rounded-xl"
+              activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+            >
+              <span slot="header">
+                <span class="text-gray-800 dark:text-gray-400">
+                  Day {Math.floor(i / 2) + 1}B •
+                </span>
+                {reference}
+              </span>
+              <ol
+                class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+              >
+                {#if isBibleReadingPlanLoading}
+                  <p>Loading...</p>
+                {:else}
+                  {#each formattedBibleTextforPlanDay[i] as verse}
+                    <li
+                      class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                      'Serif'
+                        ? 'font-serif'
+                        : 'text-sans'}"
+                      on:click={copyText}
+                      on:keypress={copyText}
+                    >
+                      {verse}
+                    </li>
+                  {/each}
+                {/if}
+              </ol>
+            </AccordionItem>
+          {:else}
+            <AccordionItem
+              class="rounded-xl"
+              activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+            >
+              <span slot="header">
+                <span class="text-gray-800 dark:text-gray-400">
+                  Day {Math.floor(i / 2) + 1}A •
+                </span>
+                {reference}
+              </span>
+              <ol
+                class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+              >
+                {#if isBibleReadingPlanLoading}
+                  <p>Loading...</p>
+                {:else}
+                  {#each formattedBibleTextforPlanDay[i] as verse}
+                    <li
+                      class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                      'Serif'
+                        ? 'font-serif'
+                        : 'text-sans'}"
+                      on:click={copyText}
+                      on:keypress={copyText}
+                    >
+                      {verse}
+                    </li>
+                  {/each}
+                {/if}
+              </ol>
+            </AccordionItem>
+          {/if}
+        {:else}
+          <AccordionItem
+            class="rounded-xl"
+            activeClasses={`rounded-none bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-${$themeColor}-600 focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
+          >
+            <span slot="header">
+              <span class="text-gray-800 dark:text-gray-400">
+                Day {Math.floor(i / 2) + 1}B •
+              </span>
+              {reference}
+            </span>
+            <ol
+              class="max-w-full space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400"
+            >
+              {#if isBibleReadingPlanLoading}
+                <p>Loading...</p>
+              {:else}
+                {#each formattedBibleTextforPlanDay[i] as verse}
+                  <li
+                    class="mb-2 text-gray-500 dark:text-gray-400 {$selectedFontStyleForBibleText ===
+                    'Serif'
+                      ? 'font-serif'
+                      : 'text-sans'}"
+                    on:click={copyText}
+                    on:keypress={copyText}
+                  >
+                    {verse}
+                  </li>
+                {/each}
+              {/if}
+            </ol>
+          </AccordionItem>
+        {/if}
       {/each}
     </Accordion>
   {:else}

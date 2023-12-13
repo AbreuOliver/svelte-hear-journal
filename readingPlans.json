@@ -368,5 +368,31 @@
       "plan": ["Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10"],
       "memoryVerses": ["Matthew 5:3-4"]
     }
+  },
+  "F260_OldTestament": {
+    "1": {
+      "plan": [
+        "Genesis 1", "Psalm 1",
+        "Genesis 2", "Psalm 2",
+        "Genesis 3", "Psalm 3",
+        "Genesis 4", "Psalm 4",
+        "Genesis 6", "Psalm 5"
+      ],
+      "memoryVerses": [
+        "Psalm 1:1-2"
+      ]
+    },
+    "2": {
+      "plan": [
+        "Genesis 7", "Psalm 6",
+        "Genesis 8", "Psalm 7",
+        "Genesis 9", "Psalm 8",
+        "Genesis 11", "Psalm 9",
+        "Genesis 12", "Psalm 10"
+      ],
+      "memoryVerses": [
+        "Psalm 6:1-2"
+      ]
+    }
   }
 }

@@ -9,10 +9,12 @@
     DropdownItem,
   } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
+  import * as readingPlanJSON from "../../readingPlans.json";
 
   enum ValuesPipe {
-    F260_NewTestament = "F260 New Testament",
-    F260_WholeBible = "F260 Whole Bible",
+    F260_NewTestament = "New Testament",
+    F260_WholeBible = "Whole Bible",
+    F260_OldTestament = "Old Testament",
   }
 
   function applyValuesPipe(plan: keyof typeof ValuesPipe): string {
@@ -41,22 +43,50 @@
     weekNumberSelected.set(weekSelected);
     console.log("*** User selected week number: ", weekSelected);
   }
+
+  console.log(
+    "Object keys",
+    Object.keys(readingPlanJSON).filter((key) => key !== "default")
+  );
 </script>
 
 <main>
   <Heading
     tag="h2"
     class="my-4 text-left"
-    customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+    customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
     >{headerText}</Heading
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-    {applyValuesPipe("F260_NewTestament")} Plan &nbsp;•
-    <Button class="pl-1" color="alternative" outline="none"
+    <!-- {applyValuesPipe("F260_NewTestament")} Plan &nbsp;• -->
+    <Button color="alternative" class="p-1">
+      <span class={`text-md lg:text-lg sm:px-0 xl:px-0`}>
+        {applyValuesPipe(planSelected)} Plan
+      </span>
+      <Chevron />
+    </Button>
+    <Dropdown placement="bottom" class="relative inline-block">
+      <ul class="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
+        {#each Object.keys(readingPlanJSON).filter((key) => key !== "default") as plan}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <li
+            class="cursor-pointer px-4 py-2 hover:bg-gray-100"
+            on:click={() => {
+              readingPlanSelected.set(plan);
+            }}
+          >
+            {applyValuesPipe(plan)}
+          </li>
+        {/each}
+      </ul>
+    </Dropdown>
+    <!-- &nbsp;• -->
+    <Button class="p-2" color="alternative"
       ><span
-        class={`text-lg lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
+        class={`text-md lg:text-lg sm:px-0 xl:px-0 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
         >Week #{weekSelected}</span
       >
+      <Chevron />
     </Button>
     <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
       <div slot="header" class="px-4 py-2">
