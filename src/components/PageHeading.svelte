@@ -5,7 +5,7 @@
     Button,
     Chevron,
     Dropdown,
-    Radio,
+    DropdownDivider,
     DropdownItem,
   } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
@@ -66,19 +66,27 @@
       <Chevron />
     </Button>
     <Dropdown placement="bottom" class="relative inline-block">
-      <ul class="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
-        {#each Object.keys(readingPlanJSON).filter((key) => key !== "default") as plan}
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
-          <li
-            class="cursor-pointer px-4 py-2 hover:bg-gray-100"
-            on:click={() => {
-              readingPlanSelected.set(plan);
-            }}
-          >
-            {applyValuesPipe(plan)}
-          </li>
-        {/each}
-      </ul>
+      <div slot="header" class="px-4 py-2">
+        <span
+          class={`block text-sm text-gray-900 font-bold dark:text-white text-${$themeColor}-600 dark:text-${$themeColor}-500`}
+        >
+          Select plan:
+        </span>
+      </div>
+      <!-- <ul class="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg"> -->
+      {#each Object.keys(readingPlanJSON).filter((key) => key !== "default") as plan}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <DropdownItem
+          class="cursor-pointer px-4 py-2 hover:bg-gray-100"
+          on:click={() => {
+            readingPlanSelected.set(plan);
+          }}
+        >
+          {applyValuesPipe(plan)}
+        </DropdownItem>
+        <DropdownDivider />
+      {/each}
+      <!-- </ul> -->
     </Dropdown>
     <!-- &nbsp;• -->
     <Button class="p-2" color="alternative"
@@ -91,7 +99,7 @@
     <Dropdown placement="bottom" class="w-auto overflow-y-auto py-1 h-[50vh]">
       <div slot="header" class="px-4 py-2">
         <span class="block text-sm text-gray-900 dark:text-white">
-          Select your current week
+          Select week:
         </span>
       </div>
       {#each Array.from({ length: 52 }, (_, i) => ((i + weekNumber) % 52) + 1) as week}
