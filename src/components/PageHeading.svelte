@@ -59,7 +59,11 @@
   >
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     <!-- {applyValuesPipe("F260_NewTestament")} Plan &nbsp;• -->
-    <Button color="alternative" class="p-1">
+    <Button
+      color="alternative"
+      class="p-1"
+      activeClass={`text-${$themeColor}-600 dark:text-${$themeColor}-500`}
+    >
       <span class={`text-md lg:text-lg sm:px-0 xl:px-0`}>
         {applyValuesPipe(planSelected)} Plan
       </span>

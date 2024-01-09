@@ -13,6 +13,7 @@ import Timeline from "./components/Timeline.svelte";
 import Copy from "./components/Copy.svelte";
 // @ts-ignore
 // import NotFound from "./components/NotFound.svelte";
+import Audio from "./components/Audio.svelte";
 
 export default {
   // Exact path
@@ -23,5 +24,6 @@ export default {
   "/journal": Journal,
   // "/settings": Settings,
   "/timeline": Timeline,
-  "/copy": Copy
+  "/copy": Copy,
+  "/audio": Audio
 };

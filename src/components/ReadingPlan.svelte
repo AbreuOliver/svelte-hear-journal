@@ -16,10 +16,6 @@
     { length: 5 },
     () => []
   );
-  // const formattedBibleTextforPlanDay: string[][] = Array.from(
-  //   { length: 10 },
-  //   () => []
-  // );
 
   let toastMessage: string = "";
   let defaultModal = false;
@@ -243,7 +239,10 @@
     </Modal>
   {/if}
   <PageHeading headerText="Bible Reading" />
-  <div class="w-full flex justify-end">
+  <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+    Read in YouVersion
+  </span>
+  <div class="ml-2 mt-2 w-full flex justify-start">
     <label
       class="relative inline-flex items-center cursor-pointer mb-6"
       on:click={activateToggle}
@@ -258,11 +257,19 @@
       <div
         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-{$themeColor}-300 dark:peer-focus:ring-{$themeColor}-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-{$themeColor}-600"
       />
-      <span
-        class="ml-3 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
-      >
-        Read in YouVersion
-      </span>
+      {#if isToggled}
+        <span
+          class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          On
+        </span>
+      {:else}
+        <span
+          class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Off
+        </span>
+      {/if}
     </label>
   </div>
   {#if !isToggled}
