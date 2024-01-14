@@ -10,6 +10,7 @@
   } from "flowbite-svelte";
   import { readingPlanSelected, weekNumberSelected, themeColor } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
+  import ReadingPlan from "./ReadingPlan.svelte";
 
   enum ValuesPipe {
     F260_NewTestament = "New Testament",
@@ -28,20 +29,27 @@
     weekNumber = value;
   });
 
-  let planSelected: string;
-  readingPlanSelected.subscribe((value) => {
-    planSelected = value;
-  });
-
-  {
-    $weekNumberSelected;
-  }
-
   let weekSelected = $weekNumberSelected;
 
   function updateWeekNumber() {
     weekNumberSelected.set(weekSelected);
     console.log("*** User selected week number: ", weekSelected);
+  }
+
+  enum ReadingPlans {
+    F260_NewTestament = "F260_NewTestament",
+    F260_WholeBible = "F260_WholeBible",
+    F260_OldTestament = "F260_OldTestament",
+  }
+
+  let planSelected;
+  readingPlanSelected.subscribe((value) => {
+    planSelected = value;
+  });
+
+  function updateReadingPlan() {
+    readingPlanSelected.set(planSelected);
+    console.log("*** User selected reading plan: ", planSelected);
   }
 
   console.log(
@@ -57,18 +65,19 @@
     customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
     >{headerText}</Heading
   >
+
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-    <!-- {applyValuesPipe("F260_NewTestament")} Plan &nbsp;• -->
     <Button
       color="alternative"
       class="p-1"
       activeClass={`text-${$themeColor}-600 dark:text-${$themeColor}-500`}
     >
       <span class={`text-md lg:text-lg sm:px-0 xl:px-0`}>
-        {applyValuesPipe(planSelected)} Plan
+        {applyValuesPipe($readingPlanSelected)}
       </span>
       <Chevron />
     </Button>
+
     <Dropdown placement="bottom" class="relative inline-block">
       <div slot="header" class="px-4 py-2">
         <span
@@ -77,20 +86,20 @@
           Select plan:
         </span>
       </div>
-      <!-- <ul class="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg"> -->
+
       {#each Object.keys(readingPlanJSON).filter((key) => key !== "default") as plan}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <DropdownItem
           class="cursor-pointer px-4 py-2 hover:bg-gray-100"
           on:click={() => {
             readingPlanSelected.set(plan);
+            updateReadingPlan();
           }}
         >
           {applyValuesPipe(plan)}
         </DropdownItem>
         <DropdownDivider />
       {/each}
-      <!-- </ul> -->
     </Dropdown>
     <!-- &nbsp;• -->
     <Button class="p-2" color="alternative"

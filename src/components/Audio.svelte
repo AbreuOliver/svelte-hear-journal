@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
+  let audioPlaying = false;
   let currentTrack = null;
   let trackLoaded = false;
   let audio = null;
@@ -365,12 +366,24 @@
     if (audioPlaying) {
       elements.playerButtons.largeToggleBtn.children[0].className =
         "large-pause-btn";
+      elements.playerButtons.largeToggleBtn.setAttribute(
+        "data-tooltip-target",
+        "tooltip-pause"
+      );
+      elements.playerButtons.largeToggleBtn.children[1].innerHTML =
+        "Pause video";
       elements.playerButtons.smallToggleBtn[
         currentTrack - 1
       ].children[0].className = "small-pause-btn";
     } else {
       elements.playerButtons.largeToggleBtn.children[0].className =
         "large-play-btn";
+      elements.playerButtons.largeToggleBtn.setAttribute(
+        "data-tooltip-target",
+        "tooltip-play"
+      );
+      elements.playerButtons.largeToggleBtn.children[1].innerHTML =
+        "Play video";
       elements.playerButtons.smallToggleBtn[
         currentTrack - 1
       ].children[0].className = "small-play-btn";
@@ -448,7 +461,7 @@
 <div class="container px-6">
   <audio id="audio" preload="none" tabindex="0">
     <source
-      src="https://ik.imagekit.io/bip1v395ybp/Psalm23_aUcLuUSZ_8.mp3?updatedAt=1704759385955"
+      src="https://ik.imagekit.io/bip1v395ybp/Psalm103_Kqfx8p9TB.mp3?updatedAt=1704759385420"
       data-track-number="1"
     />
     <source
@@ -456,10 +469,10 @@
       data-track-number="2"
     />
     <source
-      src="https://archive.org/download/slac2002-02-15/slac2002-02-15d1t07_64kb.mp3"
+      src="https://ik.imagekit.io/bip1v395ybp/Psalm23_aUcLuUSZ_8.mp3?updatedAt=1704759385955"
       data-track-number="3"
     />
-    <source
+    <!-- <source
       src="https://archive.org/download/blitzentrapper2009-02-24.flac16/blitzentrapper2009-02-24t02_64kb.mp3"
       data-track-number="4"
     />
@@ -486,28 +499,15 @@
     <source
       src="https://archive.org/download/mmj2003-09-26.shnf/mmj2003-09-26d2t08.mp3"
       data-track-number="10"
-    />
+    /> -->
     Your browser does not support HTML5 audio.
   </audio>
 
   <div class="player">
-    <div class="large-toggle-btn">
-      <i class="large-play-btn"
-        ><span class="screen-reader-text">Large toggle button</span></i
-      >
-    </div>
-    <!-- /.play-box -->
-
     <div class="info-box">
       <div class="track-info-box">
         <div class="track-title-text"></div>
-        <div class="audio-time">
-          <span class="current-time">00:00</span> /
-          <span class="duration">00:00</span>
-        </div>
       </div>
-      <!-- /.info-box -->
-
       <div class="progress-box">
         <div class="progress-cell">
           <div class="progress">
@@ -517,21 +517,18 @@
         </div>
       </div>
     </div>
-    <!-- /.progress-box -->
 
-    <div class="controls-box">
+    <!-- <div class="controls-box">
       <i class="previous-track-btn disabled"
         ><span class="screen-reader-text">Previous track button</span></i
       >
       <i class="next-track-btn"
         ><span class="screen-reader-text">Next track button</span></i
       >
-    </div>
-    <!-- /.controls-box -->
+    </div> -->
   </div>
-  <!-- /.player -->
 
-  <div class="play-list">
+  <div class="py-4 play-list">
     <div class="play-list-row" data-track-row="1">
       <div class="small-toggle-btn">
         <i class="small-play-btn"
@@ -551,7 +548,7 @@
       </div>
       <div class="track-number">2.</div>
       <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="2">Pslam 34</a>
+        <a class="playlist-track" href="#" data-play-track="2">Pslam 103</a>
       </div>
     </div>
     <div class="play-list-row" data-track-row="3">
@@ -562,100 +559,129 @@
       </div>
       <div class="track-number">3.</div>
       <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="3">Psalm 103</a>
+        <a class="playlist-track" href="#" data-play-track="3">Psalm 34</a>
       </div>
     </div>
-    <!-- <div class="play-list-row" data-track-row="4">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
+  </div>
+  <!-- NEW CODE -->
+  <div
+    class="fixed bottom-16 left-0 py-6 z-50 grid w-full h-30 grid-cols-1 px-8 bg-white border-t border-gray-200 md:grid-cols-3 dark:bg-gray-700 dark:border-gray-600"
+  >
+    <div class="flex items-center w-full">
+      <div class="w-full">
+        <div class="flex items-center justify-center mx-auto mb-4">
+          <button
+            data-tooltip-target="tooltip-previous"
+            type="button"
+            class="previous-track-btn disabled p-2.5 group rounded-full hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:hover:bg-gray-600"
+          >
+            <svg
+              class="rtl:rotate-180 w-4 h-4 text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 12 16"
+            >
+              <path
+                d="M10.819.4a1.974 1.974 0 0 0-2.147.33l-6.5 5.773A2.014 2.014 0 0 0 2 6.7V1a1 1 0 0 0-2 0v14a1 1 0 1 0 2 0V9.3c.055.068.114.133.177.194l6.5 5.773a1.982 1.982 0 0 0 2.147.33A1.977 1.977 0 0 0 12 13.773V2.227A1.977 1.977 0 0 0 10.819.4Z"
+              />
+            </svg>
+            <span class="sr-only">Previous song</span>
+          </button>
+          <div
+            id="tooltip-previous"
+            role="tooltip"
+            class="next-track-btn absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+          >
+            Previous song
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+          <button
+            data-tooltip-target="tooltip-pause"
+            type="button"
+            class="large-toggle-btn inline-flex items-center justify-center p-2.5 mx-2 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+            on:click={() => (audioPlaying = !audioPlaying)}
+          >
+            {#if audioPlaying}
+              <svg
+                class="large-play-btn w-6 h-6 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 10 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M0 .8C0 .358.32 0 .714 0h1.429c.394 0 .714.358.714.8v14.4c0 .442-.32.8-.714.8H.714a.678.678 0 0 1-.505-.234A.851.851 0 0 1 0 15.2V.8Zm7.143 0c0-.442.32-.8.714-.8h1.429c.19 0 .37.084.505.234.134.15.209.354.209.566v14.4c0 .442-.32.8-.714.8H7.857c-.394 0-.714-.358-.714-.8V.8Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            {:else}
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white pl-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 16"
+              >
+                <path
+                  stroke="white"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m2.707 14.293 5.586-5.586a1 1 0 0 0 0-1.414L2.707 1.707A1 1 0 0 0 1 2.414v11.172a1 1 0 0 0 1.707.707Z"
+                />
+              </svg>
+            {/if}
+            <span class="sr-only">Pause song</span>
+          </button>
+          <div
+            id="tooltip-pause"
+            role="tooltip"
+            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+          >
+            Pause song
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+          <button
+            data-tooltip-target="tooltip-next"
+            type="button"
+            class="p-2.5 group rounded-full hover:bg-gray-100 me-1 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:hover:bg-gray-600"
+          >
+            <svg
+              class="rtl:rotate-180 w-4 h-4 text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 12 16"
+            >
+              <path
+                d="M11 0a1 1 0 0 0-1 1v5.7a2.028 2.028 0 0 0-.177-.194L3.33.732A2 2 0 0 0 0 2.227v11.546A1.977 1.977 0 0 0 1.181 15.6a1.982 1.982 0 0 0 2.147-.33l6.5-5.773A1.88 1.88 0 0 0 10 9.3V15a1 1 0 1 0 2 0V1a1 1 0 0 0-1-1Z"
+              />
+            </svg>
+            <span class="sr-only">Next video</span>
+          </button>
+        </div>
+        <div
+          class="audio-time flex items-center justify-between space-x-2 rtl:space-x-reverse"
         >
-      </div>
-      <div class="track-number">4.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="4"
-          >Blitzen Trapper - Saturday Night</a
-        >
+          <span
+            class="current-time text-sm font-medium text-gray-500 dark:text-gray-400"
+            >00:00</span
+          >
+          <div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800">
+            <div
+              class="bg-blue-600 h-1.5 rounded-full"
+              style="width: 65%"
+            ></div>
+          </div>
+          <span
+            class="duration text-sm font-medium text-gray-500 dark:text-gray-400"
+            >00:00</span
+          >
+        </div>
       </div>
     </div>
-    <div class="play-list-row" data-track-row="5">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">5.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="5"
-          >The Samples - Feel Us Shaking</a
-        >
-      </div>
-    </div>
-    <div class="play-list-row" data-track-row="6">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">6.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="6"
-          >Mike Doughty - American Car</a
-        >
-      </div>
-    </div>
-    <div class="play-list-row" data-track-row="7">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">7.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="7"
-          >G. Love &amp; Special Sauce - Dreamin'</a
-        >
-      </div>
-    </div>
-    <div class="play-list-row" data-track-row="8">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">8.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="8"
-          >Guster - Amsterdam</a
-        >
-      </div>
-    </div>
-    <div class="play-list-row" data-track-row="9">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">9.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="9"
-          >O.A.R. - About Mr. Brown</a
-        >
-      </div>
-    </div> -->
-    <!-- <div class="play-list-row" data-track-row="10">
-      <div class="small-toggle-btn">
-        <i class="small-play-btn"
-          ><span class="screen-reader-text">Small toggle button</span></i
-        >
-      </div>
-      <div class="track-number">10.</div>
-      <div class="track-title">
-        <a class="playlist-track" href="#" data-play-track="10"
-          >My Morning Jacket - Phone Went West</a
-        >
-      </div>
-    </div> -->
   </div>
 </div>
 
