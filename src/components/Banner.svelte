@@ -6,7 +6,7 @@
     localStorage.setItem("bannerDismissed", "true");
   }
 
-  let updateText: string = `You can now use dynamic deep links to open the day's reading in the YouVersion Bible app`;
+  let updateText: string = `Your selected Reading Plan will now persist in memory until altered, as expected.`;
 </script>
 
 {#if !$bannerDismissed}

@@ -36,7 +36,7 @@ const meetingDays = [
   "Friday",
   "Saturday",
 ];
-const currentAppVersionNumber = "1.1";
+const currentAppVersionNumber = "1.2";
 const initialReadingPlan = getStoredReadingPlan();
 const initialWeekNumber = getStoredWeekNumber();
 const initialMeetingDay = localStorage.getItem("meetingDay") || "Sunday";
