@@ -144,6 +144,7 @@
     navClass="flex items-center w-full max-w-[700px] px-4 py-2.5"
     let:hidden
     let:toggle
+    style="background-color: #112435; color: white;"
   >
     <div class="flex items-center justify-center w-full">
       <NavBrand style="display: flex; flex-grow: 1;" href="/">
@@ -199,7 +200,7 @@
             </NavBrand>
             <CloseButton
               on:click={() => (drawer = true)}
-              class="dark:text-white w-[50px] mr-0.5 text-center focus:ring-4 focus:outline-none inline-flex items-center justify-center py-2.5 dark:bg-transparent dark:border-gray-800 dark:hover:border-gray-700 rounded-lg"
+              class="text-black dark:text-white w-[50px] mr-0.5 text-center focus:ring-4 focus:outline-none inline-flex items-center justify-center py-2.5 dark:bg-transparent dark:border-gray-800 dark:hover:border-gray-700 rounded-lg"
             />
           </div>
           <hr
@@ -304,7 +305,7 @@
                     </div>
                     <VerticalDivider />
                     <!--// SELECT ACCENT COLOR // -->
-                    <div class="flex justify-end items-center my-1.5 border-0">
+                    <!-- <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"
                       >
@@ -344,7 +345,7 @@
                         {/each}
                       </Dropdown>
                     </div>
-                    <VerticalDivider />
+                    <VerticalDivider /> -->
                     <div class="flex justify-end items-center my-1.5 border-0">
                       <p
                         class="my-0 font-normal text-gray-700 dark:text-gray-400 leading-tight grow grow-2"

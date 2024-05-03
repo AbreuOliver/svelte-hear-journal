@@ -15,7 +15,6 @@
     themeColor,
   } from "./store";
   import PageHeading from "./PageHeading.svelte";
-  // import VerseReview from "./VerseReview.svelte";
   import * as readingPlanJSON from "../../readingPlans.json";
 
   let formattedMemoryVerseText: string[] = [];
@@ -91,7 +90,7 @@
     </Modal>
   {/if}
   <PageHeading headerText="Memory Verses" />
-  <Accordion
+  <!-- <Accordion
     class="rounded-xl bg-white dark:bg-gray-800"
     activeClasses={`rounded-t-xl bg-${$themeColor}-50 dark:bg-gray-800 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     inactiveClasses={`text-gray-500 dark:text-gray-400 hover:bg-${$themeColor}-50 dark:hover:bg-gray-800`}
@@ -124,15 +123,28 @@
         </ul>
       {/if}
     </AccordionItem>
-  </Accordion>
-  <!-- <VerseReview /> -->
-  <!-- <Card shadow={false} class="mt-4">
-    <Video
-      class="controls"
-      style="audio::-webkit-media-controls-panel: transparent;"
-      src="//samplelib.com/lib/preview/mp3/sample-3s.mp3"
-      controls="background: transparent;"
-      controlslist="nodownload"
-    />
-  </Card> -->
+  </Accordion> -->
+  <Card class="rounded-xl bg-white dark:bg-gray-800">
+    <h2 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white pb-2">{readingPlanJSON[planSelected][weekNumber].memoryVerses}</h2>
+    {#if isMemoryVerseLoading}
+      <p>Loading...</p>
+    {:else}
+      <ul
+        class="max-w-full space-y-1 text-gray-500 list-none list-inside dark:text-gray-400 {$selectedFontStyleForBibleText ===
+        'Serif'
+          ? 'font-serif'
+          : 'text-sans'}"
+      >
+        {#each formattedMemoryVerseText as verse}
+          <li
+            class="mb-2 text-gray-500 dark:text-gray-400"
+            on:click={copyText}
+            on:keypress={copyText}
+          >
+            {verse}
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  </Card>
 </main>

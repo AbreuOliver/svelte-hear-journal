@@ -6,9 +6,10 @@
 </script>
 
 <footer
-  class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white border-top dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]`}
+  class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white border-top dark:bg-gray-700 dark:border-gray-600 text-xs`}
+  style="border-top: 1px solid lightgray;"
 >
-  <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
+  <div class="grid h-full max-w-[770px] grid-cols-2 mx-auto">
     {#if $location === "/memory-verse"}
       <a
         href="#/memory-verse"
@@ -123,122 +124,6 @@
           class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
         >
           Read
-        </span>
-      </a>
-    {/if}
-    <!-- JOURNAL -->
-    {#if $location === "/journal"}
-      <a
-        href="#/journal"
-        type="button"
-        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800"
-      >
-        <svg
-          class={`w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg`}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-        </svg>
-        <span
-          class={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
-        >
-          Journal
-        </span>
-      </a>
-    {:else}
-      <a
-        href="#/journal"
-        type="button"
-        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
-      >
-        <svg
-          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-        </svg>
-        <span
-          class={`text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"`}
-        >
-          Journal
-        </span>
-      </a>
-    {/if}
-
-    {#if $location === "/timeline"}
-      <a
-        href="#/timeline"
-        type="button"
-        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800"
-      >
-        <svg
-          class={`w-6 h-6 mb-1 text-${$themeColor}-600 dark:text-${$themeColor}-500 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg`}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-          />
-        </svg>
-        <span
-          class={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group bg-gray-200 dark:bg-gray-800 text-${$themeColor}-600 dark:text-${$themeColor}-500`}
-        >
-          Timeline
-        </span>
-      </a>
-    {:else}
-      <a
-        href="#/timeline"
-        type="button"
-        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-200 dark:hover:bg-gray-800 group"
-      >
-        <svg
-          class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-          />
-        </svg>
-        <span
-          class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-${$themeColor}-600 dark:group-hover:text-${$themeColor}-500 md:text-lg"
-        >
-          Timeline
         </span>
       </a>
     {/if}
