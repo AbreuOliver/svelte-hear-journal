@@ -28,8 +28,9 @@
     bibleTextFontStyle = value;
   });
 
-  console.log("FROM STORE: ", $readingPlanSelected);
+  console.log("[From Store] Reading Plan Selected:", $readingPlanSelected);
 
+  
   let planSelected;
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
@@ -64,7 +65,7 @@
       isMemoryVerseLoading = false;
     } catch (error) {
       console.error("Error fetching Bible text:", error);
-      isMemoryVerseLoading = false;
+      isMemoryVerseLoading = true;
     }
   }
 
@@ -91,7 +92,7 @@
     </Modal>
   {/if}
   <PageHeading headerText="Memory Verses" />
-  <Accordion
+  <!-- <Accordion
     class="rounded-xl bg-white dark:bg-gray-800"
     activeClasses={`rounded-t-xl bg-${$themeColor}-50 dark:bg-gray-800 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
     inactiveClasses={`text-gray-500 dark:text-gray-400 hover:bg-${$themeColor}-50 dark:hover:bg-gray-800`}
@@ -124,15 +125,31 @@
         </ul>
       {/if}
     </AccordionItem>
-  </Accordion>
-  <!-- <VerseReview /> -->
-  <!-- <Card shadow={false} class="mt-4">
-    <Video
-      class="controls"
-      style="audio::-webkit-media-controls-panel: transparent;"
-      src="//samplelib.com/lib/preview/mp3/sample-3s.mp3"
-      controls="background: transparent;"
-      controlslist="nodownload"
-    />
-  </Card> -->
+  </Accordion> -->
+  <Card class="shadow-none min-w-full">
+    <h5 class="mb-4 text-lg font-semibold text-gray-500 dark:text-gray-400">
+      {readingPlanJSON[planSelected][weekNumber].memoryVerses}
+    </h5>
+    {#if isMemoryVerseLoading}
+        <p>Loading...</p>
+      {:else}
+        <ul
+          class="max-w-full space-y-1 text-gray-500 list-none list-inside dark:text-gray-400 {$selectedFontStyleForBibleText ===
+          'Serif'
+            ? 'font-serif'
+            : 'text-sans'}"
+        >
+          {#each formattedMemoryVerseText as verse}
+            <li
+              class="mb-2 text-gray-500 dark:text-gray-400"
+              on:click={copyText}
+              on:keypress={copyText}
+            >
+              {verse}
+            </li>
+          {/each}
+        </ul>
+      {/if}
+  </Card>
+
 </main>

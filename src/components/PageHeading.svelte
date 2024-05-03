@@ -49,7 +49,7 @@
 
   function updateReadingPlan() {
     readingPlanSelected.set(planSelected);
-    console.log("*** User selected reading plan: ", planSelected);
+    console.log("--->> User selected reading plan: ", planSelected);
   }
 
   console.log(

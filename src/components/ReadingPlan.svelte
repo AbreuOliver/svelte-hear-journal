@@ -10,7 +10,6 @@
   } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
   import PageHeading from "./PageHeading.svelte";
-  import { reference } from "@popperjs/core";
 
   const formattedBibleTextforPlanDay: string[][] = Array.from(
     { length: 5 },
@@ -30,6 +29,8 @@
   readingPlanSelected.subscribe((value) => {
     planSelected = value;
   });
+
+  console.log("Plan Selected: ", planSelected);
 
   let bibleTextFontStyle;
   selectedFontStyleForBibleText.subscribe((value) => {
@@ -76,38 +77,6 @@
       isBibleReadingPlanLoading = false;
     }
   }
-  // async function getBibleTextForPlans() {
-  //   try {
-  //     isBibleReadingPlanLoading = true;
-  //     const plan = readingPlanJSON[planSelected][weekNumber].plan;
-
-  //     const promises = plan.map(async (references: string[], i: number) => {
-  //       const versePromises = references.map(async (reference: string) => {
-  //         const response = await axios.get(
-  //           `https://bible-api.com/${reference}?translation=kjv`
-  //         );
-
-  //         return response.data.verses.map((verse: any) =>
-  //           verse.text.replace(/\n/g, " ")
-  //         );
-  //       });
-
-  //       const verses = await Promise.all(versePromises);
-  //       formattedBibleTextforPlanDay[i] = verses.reduce(
-  //         (acc: string[], verse: string[]) => {
-  //           return acc.concat(verse);
-  //         },
-  //         []
-  //       );
-  //     });
-
-  //     await Promise.all(promises);
-  //     isBibleReadingPlanLoading = false;
-  //   } catch (error) {
-  //     console.error("Error fetching Bible text:", error);
-  //     isBibleReadingPlanLoading = false;
-  //   }
-  // }
 
   function copyText(event: Event) {
     const target = event.target as HTMLElement;
