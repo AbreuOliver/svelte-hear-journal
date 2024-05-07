@@ -2,13 +2,13 @@
   import { location } from "svelte-spa-router";
   import { themeColor } from "./store";
 
-  let footerHeight = "h-16";
+  let footerHeight = "h-20";
 </script>
 
 <footer
   class={`fixed bottom-0 left-0 z-50 w-full ${footerHeight} bg-white border-top dark:bg-gray-700 dark:border-gray-600 text-xs md:h-[5.5rem]`}
 >
-  <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto">
+  <div class="grid h-full max-w-[770px] grid-cols-4 mx-auto mb-4">
     {#if $location === "/memory-verse"}
       <a
         href="#/memory-verse"

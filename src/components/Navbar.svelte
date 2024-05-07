@@ -134,6 +134,8 @@
   }
 
   let dropdownOpen = false;
+
+  let color: string = `#1648BA`
 </script>
 
 <nav

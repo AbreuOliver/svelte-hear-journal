@@ -166,18 +166,18 @@
 <form class="w-full px-5 pb-5">
   <Heading
     tag="h2"
-    class="my-4 text-left"
+    class="my-4 text-left mb-8"
     customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
     >Journal</Heading
   >
 
-  <hr class=" mb-4 bg-gray-200 border-1 dark:bg-gray-700" />
+  <!-- <hr class=" mb-4 bg-gray-200 border-1 dark:bg-gray-700" /> -->
 
   <div class="mb-20 text-{$themeColor}-600" style="max-width: 100%;">
     <Heading
       tag="h4"
       class="my-3 text-left text-{$themeColor}-600 dark:text-{$themeColor}-700"
-      customSize="text-3xl font-extrabold md:text-4xl lg:text-5xl"
+      customSize="text-2xl font-extrabold md:text-4xl lg:text-5xl"
       >Highlight</Heading
     >
     <div class="mb-2">
@@ -194,7 +194,7 @@
     <Heading
       tag="h4"
       class="my-3 text-left"
-      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      customSize="text-2xl font-extrabold  md:text-4xl lg:text-5xl"
       >Explain</Heading
     >
     <div class="mb-2">
@@ -206,7 +206,7 @@
     <Heading
       tag="h4"
       class="my-3 text-left"
-      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      customSize="text-2xl font-extrabold  md:text-4xl lg:text-5xl"
       >Apply</Heading
     >
     <div class="mb-2">
@@ -218,7 +218,7 @@
     <Heading
       tag="h4"
       class="my-3 text-left"
-      customSize="text-3xl font-extrabold  md:text-4xl lg:text-5xl"
+      customSize="text-2xl font-extrabold  md:text-4xl lg:text-5xl"
       >Respond</Heading
     >
     <div class="mb-2">

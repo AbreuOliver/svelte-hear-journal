@@ -16,13 +16,30 @@
 
   onMount(() => {
     getTimelineEntries();
+    entries.forEach(async (entry) => {
+        await getVerseForEntry(entry);
+    });
   });
+
+  async function getVerseForEntry(entry) {
+    try {
+        // Perform your API call or any other data retrieval method here
+        const verseResponse = await fetch(`https://bible-api.com/${entry.verse}?translation=kjv`);
+        const verseData = await verseResponse.json();
+
+        // You can update the entry with the fetched verse data
+        entry.verseText = verseData.text.replace(/\n/g, ' '); // Assuming the fetched text is in 'text' property
+
+    } catch (error) {
+        console.error('Error fetching Bible text:', error);
+    }
+}
 
   function getTimelineEntries() {
     const timelineData = localStorage.getItem("timeline");
     if (timelineData) {
       entries = JSON.parse(timelineData);
-      entries.sort((a, b) => a.id - b.id);
+      entries.sort((a, b) => b.id - a.id);
     }
   }
 
@@ -52,22 +69,23 @@
 
     closeModal();
   }
+
+
 </script>
 
 <main class="w-full px-5 pb-10" style="z-index: 1; padding-bottom: 5rem;">
   <Heading
     tag="h2"
-    class="my-4 text-left"
+    class="my-4 text-left mb-8"
     customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
   >
     Timeline
   </Heading>
-  <hr class=" mb-4 bg-gray-200 border-1 dark:bg-gray-700" />
 
-  <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
-    View your past entries on this device
-  </P>
   {#if entries.length === 0}
+    <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
+      View your past entries on this device
+    </P>
     <p class="dark:text-white">
       Create and save your first entry on the
       <a
@@ -118,6 +136,16 @@
         >
           <div>
             <h2 class={`mb-1 font-semibold text-${$themeColor}-600`}>
+              Highlight
+            </h2>
+            <p
+              class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+            >
+            <span style="font-style: italic;">"{selectedEntry.verseText}"</span>
+            </p>
+          </div>
+          <div>
+            <h2 class={`mb-1 font-semibold text-${$themeColor}-600`}>
               Explanation
             </h2>
             <p
@@ -136,7 +164,7 @@
               {selectedEntry.application}
             </p>
           </div>
-          <svelte:fragment slot="footer">
+          <!-- <svelte:fragment slot="footer">
             <div
               style="width: 100%; display: flex; justify-content: flex-start;"
             >
@@ -153,7 +181,7 @@
                 Delete Entry
               </Button>
             </div>
-          </svelte:fragment>
+          </svelte:fragment> -->
         </Modal>
       {/if}
     {/if}
