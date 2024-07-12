@@ -50,7 +50,7 @@ export const meetingDay = writable(initialMeetingDay);
 export const themeColor = writable(initialThemeColor);
 export const bannerDismissed = writable(initialBannerDismissed);
 export const readingPlanSelected = writable(initialReadingPlan);
-export const selectedFontStyleForBibleText = writable("Serif");
+export const selectedFontStyleForBibleText = writable("Sans-serif");
 /* -------------------------------------------------------------------------- */
 // SUBSCRIPTIONS:
 // Subscribe to the weekNumberSelected store to update the local storage

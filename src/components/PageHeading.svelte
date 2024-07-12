@@ -61,10 +61,11 @@
 <main>
   <Heading
     tag="h2"
-    class="my-4 text-left"
+    class="mb-4 mt-6 text-left"
     customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
-    >{headerText}</Heading
-  >
+    style="color: #333;"
+    >{headerText}
+  </Heading>
 
   <P class="mb-6 text-lg lg:text-xl sm:px-0 xl:px-0 dark:text-gray-400">
     <Button
