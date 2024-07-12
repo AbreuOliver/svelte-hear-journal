@@ -10,6 +10,8 @@
   } from "./store";
   import * as readingPlanJSON from "../../readingPlans.json";
   import PageHeading from "./PageHeading.svelte";
+  import { each } from "svelte/internal";
+  import About from "./About.svelte";
 
   const formattedBibleTextforPlanDay: string[][] = Array.from(
     { length: 5 },
@@ -199,7 +201,7 @@
   );
 </script>
 
-<main class="w-full px-5 pb-[5rem]">
+<main class="w-full px-5 pb-[25%]">
   {#if toastMessage !== ""}
     <Modal title="Copied to clipboard:" bind:open={defaultModal} autoclose>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
@@ -208,38 +210,42 @@
     </Modal>
   {/if}
   <PageHeading headerText="Bible Reading" />
-  <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-    Read in YouVersion
-  </span>
-  <div class="ml-2 mt-2 w-full flex justify-start">
-    <label
-      class="relative inline-flex items-center cursor-pointer mb-6"
-      on:click={activateToggle}
-      on:keydown={activateToggle}
+  <div class="flex min-w-[100%] items-center mb-6">
+    <span
+      class="ml-2 min-w-[fit-content] mr-2 text-sm font-medium text-gray-900 dark:text-gray-300"
     >
-      <input
-        type="checkbox"
-        value=""
-        class="sr-only peer"
-        bind:checked={isToggled}
-      />
-      <div
-        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-{$themeColor}-300 dark:peer-focus:ring-{$themeColor}-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-{$themeColor}-600"
-      />
-      {#if isToggled}
-        <span
-          class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          On
-        </span>
-      {:else}
-        <span
-          class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          Off
-        </span>
-      {/if}
-    </label>
+      Read in YouVersion
+    </span>
+    <div class="ml-2 w-full flex justify-start items-center">
+      <label
+        class="relative inline-flex items-center cursor-pointer"
+        on:click={activateToggle}
+        on:keydown={activateToggle}
+      >
+        <input
+          type="checkbox"
+          value=""
+          class="sr-only peer"
+          bind:checked={isToggled}
+        />
+        <div
+          class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-{$themeColor}-300 dark:peer-focus:ring-{$themeColor}-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-{$themeColor}-600"
+        />
+        {#if isToggled}
+          <span
+            class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
+            On
+          </span>
+        {:else}
+          <span
+            class="ml-2 mr-8 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
+            Off
+          </span>
+        {/if}
+      </label>
+    </div>
   </div>
   {#if !isToggled}
     <Accordion
@@ -415,7 +421,7 @@
     </Accordion>
   {:else}
     <p
-      class="ml-3 mb-6 text-sm font-medium text-{$themeColor}-600 dark:text-{$themeColor}-600"
+      class="ml-2 mb-6 text-sm font-medium text-{$themeColor}-600 dark:text-{$themeColor}-600"
     >
       Tap the day's reference to open
     </p>
@@ -424,9 +430,9 @@
       class={`rounded-xl bg-white dark:bg-gray-800 bg-${$themeColor}-100 dark:bg-${$themeColor}-700 text-${$themeColor}-600 dark:text-white focus:ring-4 focus:ring-${$themeColor}-200 dark:focus:ring-${$themeColor}-800`}
       data-accordion="collapse"
     >
-      <h2 id="accordion-collapse-heading-1">
-        {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
-          {#if i === 0}
+      {#each readingPlanJSON[planSelected][weekNumber].plan as reference, i}
+        {#if readingPlanJSON[planSelected][weekNumber].plan.length < 10}
+          <h2 id="accordion-collapse-heading-1">
             <button
               type="button"
               class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-xl"
@@ -456,7 +462,9 @@
                 </span>
               </a>
             </button>
-          {:else if i === 4}
+          </h2>
+        {:else if i % 2 === 0}
+          {#if i === 0}
             <button
               type="button"
               class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-b-xl"
@@ -467,7 +475,37 @@
               <a href={convertToBibleLink(reference)}>
                 <span class="flex items-center justify-center">
                   <span class="text-gray-800 dark:text-gray-400 mr-2"
-                    >Day {i + 1} •
+                    >Day {Math.floor(i / 2) + 1}A •
+                  </span>
+                  {reference}
+                  <svg
+                    class="ml-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#757c89"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+                  >
+                </span>
+              </a>
+            </button>
+          {:else if i === 9}
+            <button
+              type="button"
+              class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-accordion-target="#accordion-collapse-body-1"
+              aria-expanded="true"
+              aria-controls="accordion-collapse-body-1"
+            >
+              <a href={convertToBibleLink(reference)}>
+                <span class="flex items-center justify-center">
+                  <span class="text-gray-800 dark:text-gray-400 mr-2"
+                    >Day {i + 1}B •
                   </span>
                   {reference}
                   <svg
@@ -497,7 +535,7 @@
               <a href={convertToBibleLink(reference)}>
                 <span class="flex items-center justify-center">
                   <span class="text-gray-800 dark:text-gray-400 mr-2"
-                    >Day {i + 1} •
+                    >Day {Math.floor(i / 2) + 1}A •
                   </span>
                   {reference}
                   <svg
@@ -517,8 +555,38 @@
               </a>
             </button>
           {/if}
-        {/each}
-      </h2>
+        {:else}
+          <button
+            type="button"
+            class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+            data-accordion-target="#accordion-collapse-body-1"
+            aria-expanded="true"
+            aria-controls="accordion-collapse-body-1"
+          >
+            <a href={convertToBibleLink(reference)}>
+              <span class="flex items-center justify-center">
+                <span class="text-gray-800 dark:text-gray-400 mr-2"
+                  >Day {Math.floor(i / 2) + 1}B •
+                </span>
+                {reference}
+                <svg
+                  class="ml-2 h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#757c89"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+                >
+              </span>
+            </a>
+          </button>
+        {/if}
+      {/each}
     </div>
   {/if}
 </main>
