@@ -8,6 +8,11 @@ const config = {
 
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          'Epilogue', 'ui-sans-serif', 'system-ui'
+        ]
+      },
       colors: {
         ...colors,
         yellow: colors.yellow,
