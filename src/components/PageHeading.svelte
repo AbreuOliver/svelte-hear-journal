@@ -61,7 +61,7 @@
 <main>
   <Heading
     tag="h2"
-    class="mb-4 mt-6 text-left"
+    class="mb-4 mt-[5%] text-left"
     customSize="text-4xl font-extrabold md:text-5xl lg:text-6xl"
     style="color: #333;"
     >{headerText}
